@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="tr" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mirzanin Mutfağı | Online Sipariş</title>
+
+  <style>
+    :root{
+      --purple:#6a0dad;
+      --yellow:#ffd400;
+      --bg:#fafafa;
+      --text:#1f1f1f;
+      --muted:#6b6b6b;
+      --card:#ffffff;
+      --border:#ececec;
+    }
+    *{box-sizing:border-box}
+
+    /* ✅ Background pattern */
+    body{
+      font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial;
+      margin:0;
+      color:var(--text);
+      background-color:#fff;
+      background-image:url("pattern.png");
+      background-repeat:repeat;
+      background-size:900px auto; /* می‌تونی کوچیک/بزرگش کنی */
+      background-attachment:fixed;
+    }
+
+    header{
+      position:sticky; top:0; z-index:10;
+      background:linear-gradient(90deg, var(--purple), #4b0a8a);
+      color:#fff;
+      border-bottom:1px solid rgba(255,255,255,.15);
+      backdrop-filter: blur(6px);
+    }
+
+    .wrap{max-width:1020px; margin:0 auto; padding:16px}
+    main{padding-bottom:110px}
+
+    /* ✅ Header layout: logo left */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .lefthead{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:260px;
+    }
+    .logo{
+      width:58px;
+      height:58px;
+      border-radius:14px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.25);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 auto;
+    }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .brand h1{margin:0; font-size:18px; letter-spacing:.2px}
+    .brand p{margin:6px 0 0 0; font-size:12px; color:rgba(255,255,255,.85)}
+
+    .lang{display:flex; gap:8px; align-items:center}
+    .chip{
+      border:1px solid rgba(255,255,255,.35);
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      padding:8px 10px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:12px;
+    }
+    .chip.active{background:var(--yellow); border-color:var(--yellow); color:#000}
+
+    .tabs{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .tab{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.95);
+      padding:10px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      font-size:13px;
+      font-weight:900;
+    }
+    .tab.active{background:var(--yellow); border-color:var(--yellow); color:#000}
+
+    .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:12px}
+    @media (max-width:760px){.grid{grid-template-columns:1fr}}
+
+    .card{
+      background:rgba(255,255,255,.95);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:14px;
+      box-shadow:0 6px 18px rgba(0,0,0,.04);
+    }
+    .row{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+    .name{font-weight:1000; margin:0 0 6px 0; font-size:15px}
+    .desc{margin:0; font-size:13px; color:var(--muted); line-height:1.7}
+
+    .controls{display:flex; gap:10px; align-items:center; margin-top:12px}
+    .btn{
+      border:1px solid var(--purple);
+      background:#fff;
+      color:var(--purple);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:1000;
+      min-width:44px;
+    }
+    .btn:active{transform:scale(.99)}
+    .qty{min-width:44px; text-align:center; font-weight:1000}
+
+    .section{margin-top:14px}
+    .label{margin:0 0 8px 0; font-weight:1000}
+    .hint{margin:0 0 10px 0; font-size:12px; color:var(--muted)}
+    .field{
+      width:100%;
+      padding:12px;
+      border:1px solid #ddd;
+      border-radius:14px;
+      font-size:14px;
+      outline:none;
+      background:rgba(255,255,255,.98);
+    }
+    .field:focus{border-color:var(--purple); box-shadow:0 0 0 3px rgba(106,13,173,.12)}
+
+    .sticky{
+      position:fixed; left:0; right:0; bottom:0;
+      background:rgba(255,255,255,.98);
+      border-top:2px solid rgba(106,13,173,.18);
+      padding:12px 16px;
+      z-index:20;
+      backdrop-filter: blur(6px);
+    }
+    .cartbar{
+      max-width:1020px; margin:0 auto;
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .summary{display:flex; flex-direction:column; gap:4px}
+    .total{font-weight:1000}
+    .small{font-size:12px; color:var(--muted)}
+    .primary{
+      border:0;
+      background:var(--purple);
+      color:#fff;
+      padding:12px 14px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:1000;
+    }
+    .primary:disabled{opacity:.45; cursor:not-allowed}
+    .secondary{
+      border:1px solid var(--border);
+      background:#fff;
+      padding:12px 14px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:1000;
+    }
+
+    footer{
+      margin-top:18px;
+      padding:18px 14px;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--border);
+      border-radius:18px;
+    }
+    footer a{
+      color:var(--purple);
+      font-weight:900;
+      text-decoration:none;
+    }
+    footer a:hover{ text-decoration:underline; }
+
+    /* RTL helper when FA */
+    .rtl{direction:rtl; text-align:right}
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="wrap">
+    <div class="topbar">
+      <!-- ✅ Logo on the left -->
+      <div class="lefthead">
+        <div class="logo" title="Mirzanin Mutfağı">
+          <img src="logo.png" alt="Mirzanin Mutfağı Logo">
+        </div>
+        <div class="brand">
+          <h1 id="title">Mirzanin Mutfağı | Online Sipariş</h1>
+          <p id="subtitle">Ürünleri seçin, adet girin ve siparişiniz WhatsApp ile gönderilsin.</p>
+        </div>
+      </div>
+
+      <!-- Language switch -->
+      <div class="lang">
+        <button class="chip active" id="btnTR" type="button">TR</button>
+        <button class="chip" id="btnFA" type="button">FA</button>
+      </div>
+    </div>
+
+    <div class="tabs" id="tabs"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- ✅ MENU LIST -->
+  <div class="grid" id="list"></div>
+
+  <div class="section">
+    <div class="card">
+      <p class="label" id="noteTitle">Sipariş Notu (opsiyonel)</p>
+      <p class="hint" id="noteHint">Örn: soğansız, acılı, teslim saati, adres tarifi...</p>
+      <textarea id="note" class="field" rows="3" placeholder="Not..."></textarea>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="card">
+      <p class="label" id="delTitle">Teslim Bilgisi (opsiyonel ama önerilir)</p>
+      <input id="customer" class="field" placeholder="Ad / Telefon" />
+      <div style="height:10px"></div>
+      <input id="address" class="field" placeholder="Adres / Konum / Tarif" />
+    </div>
+  </div>
+
+  <!-- ✅ Footer with Instagram -->
+  <footer>
+    <div>© <span id="y"></span> — WhatsApp Sipariş (Fiyat göstermez)</div>
+    <div style="margin-top:8px">
+      Instagram: <a href="https://www.instagram.com/mirzaninmutfagi?igsh=czNydXQ2bm1qa3c2&utm_source=qr" target="_blank" rel="noopener"> @mirzaninmutfagi </a>
+    </div>
+  </footer>
+</main>
+
+<div class="sticky">
+  <div class="cartbar">
+    <div class="summary">
+      <div class="total" id="readyText">Siparişiniz gönderilmeye hazır</div>
+      <div class="small"><span id="count">0</span> ürün seçildi</div>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+      <button class="secondary" id="clear" type="button">Temizle</button>
+      <button class="primary" id="send" type="button" disabled>WhatsApp ile Gönder</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const WHATSAPP_NUMBER = "905350715215";
+
+  const items = [
+    // Kebaplar / کباب‌ها
+    { id:"k1", catTR:"Kebaplar", catFA:"کباب‌ها",
+      nameTR:"Mirza Özel Koobide Kebap (2 Şiş)", nameFA:"کباب کوبیده مخصوص میرزا (۲ سیخ)",
+      descTR:"Izgara edilmiş, soğan ve özel İran baharatlarıyla hazırlanmış dana kıyması kebabı.",
+      descFA:"کباب گوشت چرخ‌کرده گاوی که با پیاز و ادویه‌های مخصوص ایرانی مزه‌دار شده و روی آتش کباب می‌شود."
+    },
+    { id:"k2", catTR:"Kebaplar", catFA:"کباب‌ها",
+      nameTR:"Safranlı Tavuk Şiş (Joojeh Kebap)", nameFA:"جوجه کباب زعفرانی",
+      descTR:"Safran, yoğurt ve baharatlarla marine edilmiş yumuşak tavuk şiş.",
+      descFA:"تکه‌های نرم مرغ که با زعفران، ماست و ادویه‌ها مزه‌دار شده و به صورت سیخی کباب می‌شود."
+    },
+    { id:"k3", catTR:"Kebaplar", catFA:"کباب‌ها",
+      nameTR:"Kemikli Tavuk Kebap", nameFA:"جوجه با استخوان",
+      descTR:"Kemikli tavuk etiyle hazırlanan, sulu ve aromalı geleneksel kebap.",
+      descFA:"مرغ با استخوان که به‌صورت سنتی کباب شده و آبدار و خوش‌عطر است."
+    },
+    { id:"k4", catTR:"Kebaplar", catFA:"کباب‌ها",
+      nameTR:"Kuzu Şiş (Chenjek Kebap)", nameFA:"کباب چنجه گوسفندی",
+      descTR:"Marine edilmiş kuzu kuşbaşı etinden yapılan yumuşak ve lezzetli şiş kebap.",
+      descFA:"تکه‌های گوشت گوسفندی مزه‌دارشده، نرم و لذیذ، کباب‌شده روی سیخ."
+    },
+    { id:"k5", catTR:"Kebaplar", catFA:"کباب‌ها",
+      nameTR:"Özel Dana Bonfile Kebap", nameFA:"کباب برگ مخصوص",
+      descTR:"Özenle seçilmiş dana bonfileden yapılan, yumuşak ve özel kebap.",
+      descFA:"تهیه‌شده از فیله‌ی مرغوب گوشت گاو، بسیار نرم و باکیفیت."
+    },
+
+    // Geleneksel Yemekler / غذاهای سنتی
+    { id:"g1", catTR:"Geleneksel Yemekler", catFA:"غذاهای سنتی",
+      nameTR:"Zereshk Pilavı & Tavuk", nameFA:"زرشک‌پلو با مرغ",
+      descTR:"Safranlı pirinç pilavı, ekşi ve aromatik zereshk ile servis edilir.",
+      descFA:"برنج زعفرانی ایرانی همراه با زرشک ترش و خوش‌عطر، سرو شده با مرغ."
+    },
+    { id:"g2", catTR:"Geleneksel Yemekler", catFA:"غذاهای سنتی",
+      nameTR:"Ghormeh Sabzi", nameFA:"خورشت قرمه‌سبزی",
+      descTR:"Yeşil otlar, kırmızı fasulye ve etle hazırlanan İran’ın en meşhur yemeği.",
+      descFA:"مشهورترین غذای ایرانی، تهیه‌شده از سبزی‌های معطر، لوبیا قرمز و گوشت."
+    },
+    { id:"g3", catTR:"Geleneksel Yemekler", catFA:"غذاهای سنتی",
+      nameTR:"Gheymeh", nameFA:"خورشت قیمه",
+      descTR:"Nohut, et ve domates sosuyla yapılan geleneksel İran yemeği.",
+      descFA:"خورشتی سنتی با گوشت، لپه و سس گوجه‌فرنگی."
+    },
+    { id:"g4", catTR:"Geleneksel Yemekler", catFA:"غذاهای سنتی",
+      nameTR:"Günün Yemeği", nameFA:"غذای روز",
+      descTR:"Her gün taze hazırlanan, değişen ev yemeği.",
+      descFA:"غذای خانگی تازه که هر روز متفاوت و همان روز تهیه می‌شود."
+    },
+
+    // Meze & Salata / پیش‌غذا و سالاد
+    { id:"m1", catTR:"Meze & Salata", catFA:"پیش‌غذا و سالاد",
+      nameTR:"Şirazi Salatası", nameFA:"سالاد شیرازی",
+      descTR:"Domates, salatalık ve soğan; limonlu, ferah İran salatası.",
+      descFA:"سالاد سبک و تازه از گوجه، خیار و پیاز با طعم لیمو."
+    },
+    { id:"m2", catTR:"Meze & Salata", catFA:"پیش‌غذا و سالاد",
+      nameTR:"Yoğurt & Musir", nameFA:"ماست موسیر",
+      descTR:"Musir ile hazırlanan aromatik yoğurt.",
+      descFA:"ماست سنتی ایرانی با موسیر (نوعی سیر ملایم و معطر)."
+    },
+    { id:"m3", catTR:"Meze & Salata", catFA:"پیش‌غذا و سالاد",
+      nameTR:"Cacık (İran Usulü)", nameFA:"ماست و خیار",
+      descTR:"Yoğurt, salatalık ve nane ile hafif ve serinletici meze.",
+      descFA:"ماست مخلوط با خیار و نعناع، خنک و سبک."
+    },
+    { id:"m4", catTR:"Meze & Salata", catFA:"پیش‌غذا و سالاد",
+      nameTR:"İran Usulü Zeytin", nameFA:"زیتون پرورده",
+      descTR:"Nar ekşisi, ceviz ve özel baharatlarla hazırlanan İran zeytini.",
+      descFA:"زیتون مزه‌دارشده با گردو، رب انار و ادویه‌های ایرانی."
+    },
+
+    // Tatlılar / دسر
+    { id:"t1", catTR:"Tatlılar", catFA:"دسر",
+      nameTR:"Sholezard", nameFA:"شله‌زرد",
+      descTR:"Safran, gül suyu ve pirinçle yapılan geleneksel tatlı.",
+      descFA:"دسر سنتی ایرانی از برنج، زعفران و گلاب."
+    },
+    { id:"t2", catTR:"Tatlılar", catFA:"دسر",
+      nameTR:"İran Usulü Helva", nameFA:"حلوا",
+      descTR:"Un, tereyağı ve safranla hazırlanan klasik helva.",
+      descFA:"دسر کلاسیک ایرانی از آرد، کره و زعفران."
+    },
+    { id:"t3", catTR:"Tatlılar", catFA:"دسر",
+      nameTR:"Şir Berenj", nameFA:"شیربرنج",
+      descTR:"Süt ve pirinçle yapılan hafif ev yapımı tatlı.",
+      descFA:"دسر سبک و خانگی تهیه‌شده از شیر و برنج."
+    },
+
+    // İçecekler / نوشیدنی
+    { id:"i1", catTR:"İçecekler", catFA:"نوشیدنی",
+      nameTR:"Geleneksel Ayran", nameFA:"دوغ سنتی",
+      descTR:"İran usulü doğal yoğurt içeceği.",
+      descFA:"نوشیدنی سنتی ایرانی تهیه‌شده از ماست."
+    },
+    { id:"i2", catTR:"İçecekler", catFA:"نوشیدنی",
+      nameTR:"Kola / Fanta", nameFA:"نوشابه",
+      descTR:"Soğuk gazlı içecekler.",
+      descFA:"نوشیدنی‌های گازدار."
+    },
+    { id:"i3", catTR:"İçecekler", catFA:"نوشیدنی",
+      nameTR:"Su", nameFA:"آب معدنی",
+      descTR:"Doğal içme suyu.",
+      descFA:"آب آشامیدنی."
+    },
+    { id:"i4", catTR:"İçecekler", catFA:"نوشیدنی",
+      nameTR:"İran Çayı", nameFA:"چای ایرانی",
+      descTR:"Demlenmiş geleneksel İran siyah çayı.",
+      descFA:"چای سیاه سنتی ایرانی، دم‌کشیده."
+    },
+  ];
+
+  let lang = "TR";     // ✅ default
+  let activeCat = "ALL";
+  const cart = {};
+
+  const tabsEl = document.getElementById("tabs");
+  const listEl = document.getElementById("list");
+  const countEl = document.getElementById("count");
+  const sendBtn = document.getElementById("send");
+  const clearBtn = document.getElementById("clear");
+  const btnTR = document.getElementById("btnTR");
+  const btnFA = document.getElementById("btnFA");
+
+  const titleEl = document.getElementById("title");
+  const subtitleEl = document.getElementById("subtitle");
+  const noteTitle = document.getElementById("noteTitle");
+  const noteHint  = document.getElementById("noteHint");
+  const delTitle  = document.getElementById("delTitle");
+  const readyText = document.getElementById("readyText");
+  const noteEl = document.getElementById("note");
+  const customerEl = document.getElementById("customer");
+  const addressEl  = document.getElementById("address");
+
+  document.getElementById("y").textContent = new Date().getFullYear();
+
+  function t(tr, fa){ return lang === "TR" ? tr : fa; }
+
+  function setLang(newLang){
+    lang = newLang;
+    document.documentElement.lang = (lang==="TR" ? "tr" : "fa");
+    document.documentElement.dir  = (lang==="TR" ? "ltr" : "rtl");
+
+    titleEl.textContent = t("Mirzanin Mutfağı | Online Sipariş", "Mirzanin Mutfağı | سفارش آنلاین");
+    subtitleEl.textContent = t(
+      "Ürünleri seçin, adet girin ve siparişiniz WhatsApp ile gönderilsin.",
+      "آیتم‌ها را انتخاب کن، تعداد بزن، بعد سفارش مستقیم به واتساپ ارسال می‌شود."
+    );
+    noteTitle.textContent = t("Sipariş Notu (opsiyonel)", "توضیحات سفارش (اختیاری)");
+    noteHint.textContent  = t("Örn: soğansız, acılı, teslim saati, adres tarifi...", "مثلاً: بدون پیاز، تند، زمان تحویل، توضیح برای پیک…");
+    delTitle.textContent  = t("Teslim Bilgisi (opsiyonel ama önerilir)", "اطلاعات تحویل (اختیاری ولی بهتره)");
+    readyText.textContent = t("Siparişiniz gönderilmeye hazır", "سفارش شما آماده ارسال است");
+
+    noteEl.placeholder     = t("Not...", "یادداشت...");
+    customerEl.placeholder = t("Ad / Telefon", "نام / شماره تماس");
+    addressEl.placeholder  = t("Adres / Konum / Tarif", "آدرس / لوکیشن / توضیح مسیر");
+    clearBtn.textContent   = t("Temizle", "پاک کردن");
+    sendBtn.textContent    = t("WhatsApp ile Gönder", "ارسال سفارش در واتساپ");
+
+    btnTR.classList.toggle("active", lang==="TR");
+    btnFA.classList.toggle("active", lang==="FA");
+
+    activeCat = "ALL";
+    renderTabs();
+    renderList();
+    updateBar();
+  }
+
+  function getCats(){
+    const set = new Set(items.map(x => lang==="TR" ? x.catTR : x.catFA));
+    return [t("Tümü","همه"), ...Array.from(set)];
+  }
+
+  function renderTabs(){
+    tabsEl.innerHTML = "";
+    const cats = getCats();
+    cats.forEach((catName, idx) => {
+      const key = (idx===0 ? "ALL" : catName);
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "tab" + (activeCat===key ? " active" : "");
+      b.textContent = catName;
+      b.onclick = () => { activeCat = key; renderTabs(); renderList(); };
+      tabsEl.appendChild(b);
+    });
+  }
+
+  function renderList(){
+    const visible = items.filter(it => {
+      if(activeCat==="ALL") return true;
+      const c = (lang==="TR" ? it.catTR : it.catFA);
+      return c === activeCat;
+    });
+
+    listEl.innerHTML = visible.map(it => {
+      const qty  = cart[it.id] || 0;
+      const name = (lang==="TR" ? it.nameTR : it.nameFA);
+      const desc = (lang==="TR" ? it.descTR : it.descFA);
+      const rtlClass = (lang==="FA" ? "rtl" : "");
+      return `
+        <div class="card ${rtlClass}">
+          <div class="row">
+            <div>
+              <p class="name">${name}</p>
+              <p class="desc">${desc}</p>
+            </div>
+          </div>
+          <div class="controls">
+            <button class="btn" onclick="dec('${it.id}')">-</button>
+            <div class="qty">${qty}</div>
+            <button class="btn" onclick="inc('${it.id}')">+</button>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function countItems(){
+    let c = 0;
+    for(const id in cart) c += cart[id];
+    return c;
+  }
+
+  function updateBar(){
+    const c = countItems();
+    countEl.textContent = c;
+    sendBtn.disabled = c === 0;
+  }
+
+  window.inc = (id) => { cart[id] = (cart[id]||0) + 1; renderList(); updateBar(); };
+  window.dec = (id) => {
+    cart[id] = Math.max(0, (cart[id]||0) - 1);
+    if(cart[id]===0) delete cart[id];
+    renderList(); updateBar();
+  };
+
+  clearBtn.onclick = () => {
+    for(const k in cart) delete cart[k];
+    noteEl.value = "";
+    renderList(); updateBar();
+  };
+
+  sendBtn.onclick = () => {
+    const note = noteEl.value.trim();
+    const customer = customerEl.value.trim();
+    const address = addressEl.value.trim();
+
+    const lines = [];
+    lines.push(t("Yeni Sipariş:", "سفارش جدید:"));
+    lines.push("----------------");
+
+    const catList = getCats().slice(1);
+    catList.forEach(catName => {
+      const catItems = items.filter(it => {
+        const c = (lang==="TR" ? it.catTR : it.catFA);
+        return c === catName && (cart[it.id]||0) > 0;
+      });
+      if(catItems.length === 0) return;
+
+      lines.push(catName + ":");
+      catItems.forEach(it => {
+        const q = cart[it.id] || 0;
+        const name = (lang==="TR" ? it.nameTR : it.nameFA);
+        lines.push(`${q}× ${name}`);
+      });
+      lines.push("");
+    });
+
+    if(customer) lines.push(t(`Ad/Telefon: ${customer}`, `نام/تماس: ${customer}`));
+    if(address)  lines.push(t(`Adres: ${address}`, `آدرس: ${address}`));
+    if(note)     lines.push(t(`Not: ${note}`, `توضیح: ${note}`));
+
+    const msg = encodeURIComponent(lines.join("\n"));
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+    window.open(url, "_blank");
+  };
+
+  btnTR.onclick = () => setLang("TR");
+  btnFA.onclick = () => setLang("FA");
+
+  setLang("TR");
+</script>
+</body>
+</html>
+
