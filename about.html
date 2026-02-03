@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mirzanin Mutfağı | Hakkımızda</title>
+  <style>
+    :root{
+      --purple:#6a1bb1;
+      --yellow:#f6c21c;
+      --text:#1c1c1c;
+      --card:#ffffffd6;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Tahoma, Arial;
+      color:var(--text);
+      min-height:100vh;
+      background:
+        linear-gradient(180deg, rgba(246,194,28,.10), rgba(106,27,177,.08)),
+        url('pattern.png');
+      background-size:auto, 900px;
+      background-repeat:repeat;
+    }
+    header{
+      background:linear-gradient(90deg, var(--purple), #4b0f86);
+      color:#fff;
+      padding:14px 16px;
+      position:sticky;
+      top:0;
+      z-index:10;
+      border-bottom: 3px solid rgba(246,194,28,.55);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    header .left{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900;
+    }
+    header img{width:38px; height:auto; border-radius:10px; background:#fff; padding:3px}
+    header a{
+      color:#fff; text-decoration:none; font-weight:800;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      padding:8px 12px;
+      border-radius:12px;
+    }
+    .wrap{max-width:980px; margin:0 auto; padding:20px 16px 28px}
+    .card{
+      background:var(--card);
+      border:1px solid rgba(0,0,0,.08);
+      border-radius:22px;
+      padding:18px 16px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.10);
+    }
+    h1{margin:0 0 10px; font-size:20px}
+    h2{margin:18px 0 8px; font-size:16px}
+    p{margin:0 0 10px; line-height:1.85; font-size:14px}
+    .sep{margin:14px 0; border:none; border-top:1px dashed rgba(0,0,0,.18)}
+    footer{
+      text-align:center;
+      padding:14px 10px 22px;
+      color:rgba(0,0,0,.55);
+      font-size:12px;
+    }
+    footer a{color:rgba(0,0,0,.7)}
+    .fa{direction:rtl}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="left">
+      <img src="logo.png" alt="Logo">
+      <div>Mirzanin Mutfağı</div>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="card">
+      <h1>About Us / Hakkımızda</h1>
+
+      <h2 class="fa">🇮🇷 درباره ما – فارسی</h2>
+      <div class="fa">
+        <p>آشپزخانه میرزا با عشق به آشپزی اصیل ایرانی و احترام به طعم‌های ماندگار شکل گرفته است. ما باور داریم غذا فقط یک وعده نیست، بلکه تجربه‌ای است که خاطره می‌سازد.</p>
+        <p>در آشپزخانه میرزا تلاش می‌کنیم با استفاده از مواد اولیه تازه، ادویه‌های باکیفیت و دستورپخت‌های اصیل، طعم واقعی کباب‌ها و غذاهای ایرانی را به سفره شما بیاوریم.</p>
+        <p>هدف ما ارائه غذایی باکیفیت، محیطی صمیمی و خدماتی صادقانه است تا هر بار که به آشپزخانه میرزا سر می‌زنید، حس رضایت و آرامش را تجربه کنید.</p>
+        <p>آشپزخانه میرزا ؛ جایی برای عاشقان طعم واقعی غذا.</p>
+      </div>
+
+      <hr class="sep"/>
+
+      <h2>🇹🇷 Hakkımızda – Türkçe</h2>
+      <p>Mirzanin Mutfağı, İran mutfağının köklü lezzetlerine olan tutku ve saygıyla kurulmuştur. Bizim için yemek sadece bir öğün değil, aynı zamanda bir deneyimdir.</p>
+      <p>Taze malzemeler, kaliteli baharatlar ve özgün tariflerle; kebap ve Pers mutfağının gerçek lezzetlerini sizlere sunmayı amaçlıyoruz.</p>
+      <p>Amacımız; kaliteli yemek, samimi bir ortam ve güvenilir hizmet anlayışıyla misafirlerimize her zaman en iyisini sunmaktır.</p>
+      <p><strong>Mirzanin Mutfağı</strong> – Gerçek lezzetin adresi.</p>
+    </div>
+  </div>
+
+  <footer>
+    Instagram: <a href="https://www.instagram.com/mirzaninmutfagi?igsh=czNydXQ2bm1qa3c2&utm_source=qr" target="_blank" rel="noopener">mirzaninmutfagi</a>
+  </footer>
+</body>
+</html>
