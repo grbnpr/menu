@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="tr" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mirzanin Mutfağı | Admin Panel</title>
+  <style>
+    :root{
+      --purple:#5a189a; --purple2:#3c096c; --yellow:#f6c21c;
+      --border:rgba(0,0,0,.10);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Tahoma,Arial,sans-serif;
+      background: linear-gradient(rgba(255,255,255,.90), rgba(255,255,255,.90)), url("pattern.png");
+      background-size:900px; background-repeat:repeat;
+      color:#111;
+    }
+    header{
+      background:linear-gradient(90deg,var(--purple),var(--purple2));
+      color:#fff; border-bottom:4px solid var(--yellow);
+      padding:12px 16px; position:sticky; top:0; z-index:999;
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    header .brand{display:flex; align-items:center; gap:10px; font-weight:900;}
+    header img{width:40px; border-radius:12px; background:#fff; padding:4px;}
+    header a{color:#fff; text-decoration:none; font-weight:900; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2);
+      padding:9px 12px; border-radius:14px;}
+    .wrap{max-width:1050px; margin:0 auto; padding:16px;}
+    .card{
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--border);
+      border-radius:20px;
+      box-shadow:0 10px 26px rgba(0,0,0,.08);
+      padding:14px;
+      margin-top:12px;
+    }
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(0,0,0,.15);
+      background:#fff;
+      font-family:inherit;
+      font-size:14px;
+    }
+    .col{flex:1 1 240px;}
+    .btn{
+      border:0; cursor:pointer; font-weight:900;
+      padding:12px 14px; border-radius:16px;
+      box-shadow:0 10px 22px rgba(0,0,0,.12);
+    }
+    .btn.primary{background:var(--yellow); color:#000;}
+    .btn.white{background:#fff; border:2px solid rgba(0,0,0,.12); box-shadow:none;}
+    table{width:100%; border-collapse:collapse; margin-top:10px;}
+    th, td{padding:10px 8px; border-top:1px solid rgba(0,0,0,.10); text-align:left; font-size:14px;}
+    th{font-weight:900;}
+    .pill{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(90,24,154,.10); border:1px solid rgba(90,24,154,.18); font-weight:900;}
+    .muted{opacity:.75; font-size:12px;}
+    .login{
+      max-width:520px; margin:34px auto 0; padding:0 16px;
+    }
+    .hidden{display:none !important;}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img src="logo.png" alt="logo">
+    <div>Admin Panel</div>
+  </div>
+  <div class="row" style="gap:8px;">
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <button id="logoutBtn" class="btn white hidden" type="button">Logout</button>
+  </div>
+</header>
+
+<!-- LOGIN -->
+<div id="loginBox" class="login">
+  <div class="card">
+    <h2 style="margin:0 0 10px;">Giriş</h2>
+    <div class="muted">این پنل ساده است و اطلاعات را داخل همین مرورگر ذخیره می‌کند.</div>
+    <div style="height:10px"></div>
+    <input id="pass" type="password" placeholder="Password" />
+    <div style="height:10px"></div>
+    <button class="btn primary" type="button" onclick="login()">Login</button>
+    <div id="loginMsg" class="muted" style="margin-top:10px;color:#b00020;"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" class="wrap hidden">
+  <div class="card">
+    <div class="row">
+      <div class="col"><input id="name" placeholder="نام مشتری / Müşteri adı" /></div>
+      <div class="col"><input id="phone" placeholder="شماره تماس (مثال: 90535...)" /></div>
+      <div class="col"><input id="purchases" type="number" min="0" value="0" placeholder="تعداد خرید" /></div>
+    </div>
+    <div style="height:10px"></div>
+    <textarea id="note" rows="2" placeholder="یادداشت (اختیاری)"></textarea>
+    <div style="height:10px"></div>
+    <div class="row" style="justify-content:space-between;">
+      <div class="row">
+        <button class="btn primary" type="button" onclick="addCustomer()">Add / Save</button>
+        <button class="btn white" type="button" onclick="clearForm()">Clear</button>
+      </div>
+      <div class="row">
+        <button class="btn white" type="button" onclick="exportCSV()">Export CSV</button>
+        <button class="btn white" type="button" onclick="clearAll()">Delete All</button>
+      </div>
+    </div>
+    <div class="muted" style="margin-top:10px;">
+      نکته: شماره را یکتا در نظر گرفتم. اگر شماره تکراری بزنی، همان مشتری آپدیت می‌شود.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row" style="justify-content:space-between;">
+      <div class="col"><input id="search" placeholder="Search by name/phone..." oninput="render()" /></div>
+      <div class="pill" id="stats">0 مشتری</div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>نام</th>
+          <th>شماره</th>
+          <th>تعداد خرید</th>
+          <th>یادداشت</th>
+          <th>عملیات</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  // ❗ ساده: رمز داخل کد است. برای شروع OK ولی امنیت واقعی نیست.
+  const ADMIN_PASSWORD = "1234"; // اینو عوض کن
+
+  const LS_KEY = "mirzanin_customers_v1";
+  const SESSION_KEY = "mirzanin_admin_logged_in";
+
+  function getData(){
+    try { return JSON.parse(localStorage.getItem(LS_KEY) || "[]"); }
+    catch(e){ return []; }
+  }
+  function setData(arr){
+    localStorage.setItem(LS_KEY, JSON.stringify(arr));
+  }
+
+  function login(){
+    const p = document.getElementById("pass").value.trim();
+    const msg = document.getElementById("loginMsg");
+    if(p === ADMIN_PASSWORD){
+      sessionStorage.setItem(SESSION_KEY, "1");
+      msg.textContent = "";
+      showApp();
+    }else{
+      msg.textContent = "Password اشتباه است.";
+    }
+  }
+
+  function showApp(){
+    document.getElementById("loginBox").classList.add("hidden");
+    document.getElementById("app").classList.remove("hidden");
+    document.getElementById("logoutBtn").classList.remove("hidden");
+    render();
+  }
+
+  function logout(){
+    sessionStorage.removeItem(SESSION_KEY);
+    location.reload();
+  }
+  document.getElementById("logoutBtn").onclick = logout;
+
+  function normalizePhone(s){
+    return (s || "").replace(/\s+/g,"").replace(/^\+/, "");
+  }
+
+  function addCustomer(){
+    const name = document.getElementById("name").value.trim();
+    const phone = normalizePhone(document.getElementById("phone").value.trim());
+    const purchases = Math.max(0, parseInt(document.getElementById("purchases").value || "0", 10));
+    const note = document.getElementById("note").value.trim();
+
+    if(!name || !phone){
+      alert("نام و شماره را وارد کن.");
+      return;
+    }
+
+    const data = getData();
+    const i = data.findIndex(x => x.phone === phone);
+
+    const obj = { name, phone, purchases, note, updatedAt: new Date().toISOString() };
+
+    if(i >= 0) data[i] = obj;
+    else data.push(obj);
+
+    // sort by purchases desc
+    data.sort((a,b)=> (b.purchases||0) - (a.purchases||0));
+
+    setData(data);
+    clearForm();
+    render();
+  }
+
+  function incPurchase(phone){
+    const data = getData();
+    const i = data.findIndex(x => x.phone === phone);
+    if(i >= 0){
+      data[i].purchases = (data[i].purchases||0) + 1;
+      data[i].updatedAt = new Date().toISOString();
+      data.sort((a,b)=> (b.purchases||0) - (a.purchases||0));
+      setData(data);
+      render();
+    }
+  }
+
+  function editCustomer(phone){
+    const data = getData();
+    const c = data.find(x => x.phone === phone);
+    if(!c) return;
+    document.getElementById("name").value = c.name || "";
+    document.getElementById("phone").value = c.phone || "";
+    document.getElementById("purchases").value = c.purchases || 0;
+    document.getElementById("note").value = c.note || "";
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function deleteCustomer(phone){
+    if(!confirm("حذف شود؟")) return;
+    const data = getData().filter(x => x.phone !== phone);
+    setData(data);
+    render();
+  }
+
+  function clearForm(){
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("purchases").value = 0;
+    document.getElementById("note").value = "";
+  }
+
+  function clearAll(){
+    if(!confirm("همه مشتری‌ها پاک شوند؟")) return;
+    setData([]);
+    render();
+  }
+
+  function render(){
+    const q = (document.getElementById("search").value || "").toLowerCase().trim();
+    const data = getData().filter(x => {
+      const hay = (x.name + " " + x.phone).toLowerCase();
+      return !q || hay.includes(q);
+    });
+
+    document.getElementById("stats").textContent = `${data.length} مشتری`;
+
+    const tbody = document.getElementById("tbody");
+    tbody.innerHTML = "";
+
+    data.forEach(x=>{
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><b>${escapeHtml(x.name)}</b></td>
+        <td>${escapeHtml(x.phone)}</td>
+        <td><span class="pill">${x.purchases||0}</span></td>
+        <td>${escapeHtml(x.note||"")}</td>
+        <td>
+          <button class="btn white" type="button" onclick="incPurchase('${x.phone}')">+1 خرید</button>
+          <button class="btn white" type="button" onclick="editCustomer('${x.phone}')">Edit</button>
+          <button class="btn white" type="button" onclick="deleteCustomer('${x.phone}')">Delete</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function exportCSV(){
+    const data = getData();
+    const rows = [
+      ["name","phone","purchases","note","updatedAt"],
+      ...data.map(x=> [x.name, x.phone, String(x.purchases||0), x.note||"", x.updatedAt||""])
+    ];
+    const csv = rows.map(r => r.map(cell => `"${String(cell).replace(/"/g,'""')}"`).join(",")).join("\n");
+    const blob = new Blob([csv], {type:"text/csv;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "mirzanin-customers.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, m => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[m]));
+  }
+
+  // auto login if session exists
+  if(sessionStorage.getItem(SESSION_KEY) === "1"){
+    showApp();
+  }
+</script>
+
+</body>
+</html>
