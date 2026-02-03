@@ -12,6 +12,7 @@
       --text:#111;
       --muted:#444;
       --border:rgba(0,0,0,.08);
+      --card:rgba(255,255,255,.92);
     }
     *{box-sizing:border-box}
     body{
@@ -24,6 +25,8 @@
       background-size:900px;
       background-repeat:repeat;
     }
+
+    /* top header */
     header{
       background:linear-gradient(90deg,var(--purple),var(--purple2));
       color:#fff;
@@ -87,17 +90,36 @@
     }
 
     .wrap{max-width:980px;margin:0 auto;padding:18px;}
+
+    /* cards */
     .card{
-      background:rgba(255,255,255,.92);
+      background:var(--card);
       border:1px solid var(--border);
       border-radius:20px;
-      padding:16px;
+      overflow:hidden;
       box-shadow:0 10px 26px rgba(0,0,0,.08);
       margin-top:14px;
+    }
+
+    /* ✅ purple title header inside card */
+    .cardHead{
+      background:linear-gradient(90deg,var(--purple),var(--purple2));
+      color:#fff;
+      padding:12px 14px;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:3px solid rgba(246,194,28,.55);
+    }
+
+    /* text area keeps old style */
+    .cardBody{
+      padding:16px;
       line-height:1.9;
       color:var(--muted);
+      font-size:14px;
     }
-    h2{margin:0 0 10px 0;color:#111}
 
     .fa{direction:rtl; text-align:right;}
     .hidden{display:none !important;}
@@ -134,26 +156,30 @@
 
   <!-- TR -->
   <div class="card" id="secTR">
-    <h2>Hakkımızda – Türkçe</h2>
-    Mirzanin Mutfağı, İran mutfağının köklü lezzetlerine olan tutku ve saygıyla kurulmuştur. Bizim için yemek sadece bir öğün değil, aynı zamanda bir deneyimdir.
-    <br><br>
-    Taze malzemeler, kaliteli baharatlar ve özgün tariflerle; kebap ve Pers mutfağının gerçek lezzetlerini sizlere sunmayı amaçlıyoruz.
-    <br><br>
-    Amacımız; kaliteli yemek, samimi bir ortam ve güvenilir hizmet anlayışıyla misafirlerimize her zaman en iyisini sunmaktır.
-    <br><br>
-    Mirzanin Mutfağı – Gerçek lezzetin adresi.
+    <div class="cardHead">Hakkımızda</div>
+    <div class="cardBody">
+      Mirzanin Mutfağı, İran mutfağının köklü lezzetlerine olan tutku ve saygıyla kurulmuştur. Bizim için yemek sadece bir öğün değil, aynı zamanda bir deneyimdir.
+      <br><br>
+      Taze malzemeler, kaliteli baharatlar ve özgün tariflerle; kebap ve Pers mutfağının gerçek lezzetlerini sizlere sunmayı amaçlıyoruz.
+      <br><br>
+      Amacımız; kaliteli yemek, samimi bir ortam ve güvenilir hizmet anlayışıyla misafirlerimize her zaman en iyisini sunmaktır.
+      <br><br>
+      <b>Mirzanin Mutfağı</b> – Gerçek lezzetin adresi.
+    </div>
   </div>
 
   <!-- FA -->
-  <div class="card fa hidden" id="secFA">
-    <h2>درباره ما – فارسی</h2>
-    آشپزخانه میرزا با عشق به آشپزی اصیل ایرانی و احترام به طعم‌های ماندگار شکل گرفته است. ما باور داریم غذا فقط یک وعده نیست، بلکه تجربه‌ای است که خاطره می‌سازد.
-    <br><br>
-    در آشپزخانه میرزا تلاش می‌کنیم با استفاده از مواد اولیه تازه، ادویه‌های باکیفیت و دستورپخت‌های اصیل، طعم واقعی کباب‌ها و غذاهای ایرانی را به سفره شما بیاوریم.
-    <br><br>
-    هدف ما ارائه غذایی باکیفیت، محیطی صمیمی و خدماتی صادقانه است تا هر بار که به آشپزخانه میرزا سر می‌زنید، حس رضایت و آرامش را تجربه کنید.
-    <br><br>
-    آشپزخانه میرزا ؛ جایی برای عاشقان طعم واقعی غذا.
+  <div class="card hidden" id="secFA">
+    <div class="cardHead fa">درباره ما</div>
+    <div class="cardBody fa">
+      آشپزخانه میرزا با عشق به آشپزی اصیل ایرانی و احترام به طعم‌های ماندگار شکل گرفته است. ما باور داریم غذا فقط یک وعده نیست، بلکه تجربه‌ای است که خاطره می‌سازد.
+      <br><br>
+      در آشپزخانه میرزا تلاش می‌کنیم با استفاده از مواد اولیه تازه، ادویه‌های باکیفیت و دستورپخت‌های اصیل، طعم واقعی کباب‌ها و غذاهای ایرانی را به سفره شما بیاوریم.
+      <br><br>
+      هدف ما ارائه غذایی باکیفیت، محیطی صمیمی و خدماتی صادقانه است تا هر بار که به آشپزخانه میرزا سر می‌زنید، حس رضایت و آرامش را تجربه کنید.
+      <br><br>
+      آشپزخانه میرزا ؛ جایی برای عاشقان طعم واقعی غذا.
+    </div>
   </div>
 
 </div>
@@ -175,6 +201,7 @@
     secFA.classList.toggle("hidden", isTR);
     btnTR.classList.toggle("active", isTR);
     btnFA.classList.toggle("active", !isTR);
+
     document.documentElement.lang = isTR ? "tr" : "fa";
     document.documentElement.dir  = isTR ? "ltr" : "rtl";
   }
