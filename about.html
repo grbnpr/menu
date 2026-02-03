@@ -40,6 +40,7 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
+      flex-wrap:wrap;
     }
     .brand{
       display:flex;
@@ -53,17 +54,38 @@
       background:#fff;
       padding:4px;
     }
-    nav a{
+    nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+    }
+    nav a, nav button{
       text-decoration:none;
       font-weight:900;
       padding:10px 14px;
       border-radius:14px;
       display:inline-block;
-      margin-left:8px;
       box-shadow:0 10px 18px rgba(0,0,0,.12);
+      border:0;
+      cursor:pointer;
     }
     nav a.home{background:var(--yellow);color:#000;}
     nav a.menu{background:#fff;color:#000;}
+    nav button.lang{
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:none;
+      padding:9px 12px;
+    }
+    nav button.lang.active{
+      background:var(--yellow);
+      color:#000;
+      border-color:var(--yellow);
+    }
+
     .wrap{max-width:980px;margin:0 auto;padding:18px;}
     .card{
       background:rgba(255,255,255,.92);
@@ -76,6 +98,10 @@
       color:var(--muted);
     }
     h2{margin:0 0 10px 0;color:#111}
+
+    .fa{direction:rtl; text-align:right;}
+    .hidden{display:none !important;}
+
     footer{
       padding:22px 18px 28px;
       text-align:center;
@@ -94,28 +120,21 @@
       <img src="logo.png" alt="Logo">
       <div>Mirzanin Mutfağı</div>
     </div>
+
     <nav>
       <a class="home" href="index.html">Home</a>
       <a class="menu" href="menu.html">Menu</a>
+      <button class="lang active" id="btnTR" type="button">TR</button>
+      <button class="lang" id="btnFA" type="button">FA</button>
     </nav>
   </div>
 </header>
 
 <div class="wrap">
 
-  <div class="card">
-    <h2>🇮🇷 درباره ما – فارسی</h2>
-    آشپزخانه میرزا با عشق به آشپزی اصیل ایرانی و احترام به طعم‌های ماندگار شکل گرفته است. ما باور داریم غذا فقط یک وعده نیست، بلکه تجربه‌ای است که خاطره می‌سازد.
-    <br><br>
-    در آشپزخانه میرزا تلاش می‌کنیم با استفاده از مواد اولیه تازه، ادویه‌های باکیفیت و دستورپخت‌های اصیل، طعم واقعی کباب‌ها و غذاهای ایرانی را به سفره شما بیاوریم.
-    <br><br>
-    هدف ما ارائه غذایی باکیفیت، محیطی صمیمی و خدماتی صادقانه است تا هر بار که به آشپزخانه میرزا سر می‌زنید، حس رضایت و آرامش را تجربه کنید.
-    <br><br>
-    آشپزخانه میرزا ؛ جایی برای عاشقان طعم واقعی غذا.
-  </div>
-
-  <div class="card">
-    <h2>🇹🇷 Hakkımızda – Türkçe</h2>
+  <!-- TR -->
+  <div class="card" id="secTR">
+    <h2>Hakkımızda – Türkçe</h2>
     Mirzanin Mutfağı, İran mutfağının köklü lezzetlerine olan tutku ve saygıyla kurulmuştur. Bizim için yemek sadece bir öğün değil, aynı zamanda bir deneyimdir.
     <br><br>
     Taze malzemeler, kaliteli baharatlar ve özgün tariflerle; kebap ve Pers mutfağının gerçek lezzetlerini sizlere sunmayı amaçlıyoruz.
@@ -125,12 +144,45 @@
     Mirzanin Mutfağı – Gerçek lezzetin adresi.
   </div>
 
+  <!-- FA -->
+  <div class="card fa hidden" id="secFA">
+    <h2>درباره ما – فارسی</h2>
+    آشپزخانه میرزا با عشق به آشپزی اصیل ایرانی و احترام به طعم‌های ماندگار شکل گرفته است. ما باور داریم غذا فقط یک وعده نیست، بلکه تجربه‌ای است که خاطره می‌سازد.
+    <br><br>
+    در آشپزخانه میرزا تلاش می‌کنیم با استفاده از مواد اولیه تازه، ادویه‌های باکیفیت و دستورپخت‌های اصیل، طعم واقعی کباب‌ها و غذاهای ایرانی را به سفره شما بیاوریم.
+    <br><br>
+    هدف ما ارائه غذایی باکیفیت، محیطی صمیمی و خدماتی صادقانه است تا هر بار که به آشپزخانه میرزا سر می‌زنید، حس رضایت و آرامش را تجربه کنید.
+    <br><br>
+    آشپزخانه میرزا ؛ جایی برای عاشقان طعم واقعی غذا.
+  </div>
+
 </div>
 
 <footer>
   Instagram: <a href="https://www.instagram.com/mirzaninmutfagi?igsh=czNydXQ2bm1qa3c2&utm_source=qr" target="_blank" rel="noopener">@mirzaninmutfagi</a>
   <div class="small">© Mirzanin Mutfağı</div>
 </footer>
+
+<script>
+  const btnTR = document.getElementById("btnTR");
+  const btnFA = document.getElementById("btnFA");
+  const secTR = document.getElementById("secTR");
+  const secFA = document.getElementById("secFA");
+
+  function setLang(lang){
+    const isTR = lang === "TR";
+    secTR.classList.toggle("hidden", !isTR);
+    secFA.classList.toggle("hidden", isTR);
+    btnTR.classList.toggle("active", isTR);
+    btnFA.classList.toggle("active", !isTR);
+    document.documentElement.lang = isTR ? "tr" : "fa";
+    document.documentElement.dir  = isTR ? "ltr" : "rtl";
+  }
+
+  btnTR.onclick = () => setLang("TR");
+  btnFA.onclick = () => setLang("FA");
+  setLang("TR");
+</script>
 
 </body>
 </html>

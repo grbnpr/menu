@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" dir="ltr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -22,9 +22,10 @@
       background:
         linear-gradient(rgba(255,255,255,.90), rgba(255,255,255,.90)),
         url("pattern.png");
-      background-size: 900px;
-      background-repeat: repeat;
+      background-size:900px;
+      background-repeat:repeat;
     }
+
     header{
       background:linear-gradient(90deg,var(--purple),var(--purple2));
       color:#fff;
@@ -41,12 +42,14 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
+      flex-wrap:wrap;
     }
     .brand{
       display:flex;
       align-items:center;
       gap:10px;
       font-weight:900;
+      min-width:240px;
     }
     .brand img{
       width:44px;
@@ -55,18 +58,41 @@
       background:#fff;
       padding:4px;
     }
-    nav a{
+
+    nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+    }
+    nav a, nav button{
       text-decoration:none;
       font-weight:900;
       padding:10px 14px;
       border-radius:14px;
       display:inline-block;
-      margin-left:8px;
       box-shadow:0 10px 18px rgba(0,0,0,.12);
+      border:0;
+      cursor:pointer;
     }
     nav a.home{background:var(--yellow);color:#000;}
     nav a.about{background:#fff;color:#000;}
+    nav button.lang{
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:none;
+      padding:9px 12px;
+    }
+    nav button.lang.active{
+      background:var(--yellow);
+      color:#000;
+      border-color:var(--yellow);
+    }
+
     .wrap{max-width:1100px;margin:0 auto;padding:18px;}
+
     .note{
       margin:14px 0 0;
       background:rgba(255,255,255,.92);
@@ -76,6 +102,7 @@
       line-height:1.7;
       color:var(--muted);
     }
+
     .grid{
       display:grid;
       grid-template-columns:repeat(2,1fr);
@@ -85,6 +112,7 @@
     @media (max-width:860px){
       .grid{grid-template-columns:1fr;}
     }
+
     .section{
       margin-top:18px;
       padding:16px;
@@ -100,6 +128,7 @@
       align-items:center;
       gap:8px;
     }
+
     .item{
       border-top:1px solid rgba(0,0,0,.08);
       padding:12px 0;
@@ -111,22 +140,38 @@
     .item:first-of-type{border-top:none}
     .name{font-weight:900}
     .desc{margin:4px 0 0;color:#444;font-size:13px;line-height:1.6}
+
+    /* ✅ plus/minus controls */
     .qty{
-      min-width:130px;
+      min-width:150px;
       display:flex;
       justify-content:flex-end;
       align-items:center;
       gap:8px;
+      flex:0 0 auto;
     }
-    .qty input{
-      width:64px;
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid rgba(0,0,0,.15);
+    .qbtn{
+      width:40px;
+      height:40px;
+      border-radius:14px;
+      border:0;
       font-weight:900;
-      text-align:center;
-      background:#fff;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(0,0,0,.10);
     }
+    .qbtn.minus{background:#fff;color:#000;border:2px solid rgba(0,0,0,.12); box-shadow:none;}
+    .qbtn.plus{background:var(--yellow);color:#000;}
+    .qnum{
+      min-width:44px;
+      text-align:center;
+      font-weight:900;
+      font-size:15px;
+      padding:8px 6px;
+      border-radius:12px;
+      background:#fff;
+      border:1px solid rgba(0,0,0,.12);
+    }
+
     .controls{
       margin-top:16px;
       display:flex;
@@ -146,7 +191,8 @@
     }
     .btn:active{transform:scale(.99)}
     .btn.send{background:var(--yellow);color:#000;}
-    .btn.clear{background:#fff;color:#000;border:2px solid rgba(0,0,0,.12);}
+    .btn.clear{background:#fff;color:#000;border:2px solid rgba(0,0,0,.12); box-shadow:none;}
+
     textarea, input[type="text"]{
       width:100%;
       padding:12px 12px;
@@ -164,6 +210,7 @@
       margin-top:12px;
     }
     @media (max-width:860px){ .two{grid-template-columns:1fr;} }
+
     footer{
       padding:22px 18px 28px;
       text-align:center;
@@ -172,6 +219,9 @@
     }
     footer a{color:var(--purple);font-weight:900;text-decoration:none}
     .small{margin-top:6px;opacity:.75;font-size:12px}
+
+    /* ✅ RTL mode when FA */
+    .rtl{direction:rtl; text-align:right;}
   </style>
 </head>
 <body>
@@ -180,37 +230,36 @@
   <div class="top">
     <div class="brand">
       <img src="logo.png" alt="Logo">
-      <div>Mirzanin Mutfağı</div>
+      <div id="brandTitle">Mirzanin Mutfağı</div>
     </div>
 
     <nav>
-      <a class="home" href="index.html">Home</a>
-      <a class="about" href="about.html">About</a>
+      <a class="home" href="index.html" id="navHome">Home</a>
+      <a class="about" href="about.html" id="navAbout">About</a>
+      <button class="lang active" id="btnTR" type="button">TR</button>
+      <button class="lang" id="btnFA" type="button">FA</button>
     </nav>
   </div>
 </header>
 
 <div class="wrap">
 
-  <div class="note">
-    <b>Online Sipariş:</b> Ürünleri seçin, adet yazın ve “WhatsApp’tan Gönder” butonuna basın.<br/>
-    <span style="opacity:.8">Not: Fiyatlar şu an gösterilmiyor.</span>
-  </div>
+  <div class="note" id="noteBox"></div>
 
   <div class="section">
-    <h2>📝 Sipariş Notu (İsteğe bağlı)</h2>
-    <textarea id="note" rows="3" placeholder="Örn: Acısız, az tuz, teslimat saati, vb."></textarea>
+    <h2 id="orderTitle"></h2>
+    <textarea id="note" rows="3"></textarea>
 
     <div class="two">
-      <input id="name" type="text" placeholder="Ad Soyad (isteğe bağlı)">
-      <input id="address" type="text" placeholder="Adres / Konum (isteğe bağlı)">
+      <input id="name" type="text">
+      <input id="address" type="text">
     </div>
 
     <div class="controls">
-      <div id="summary" style="font-weight:900;">Seçilen ürün: 0</div>
+      <div id="summary" style="font-weight:900;"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <button class="btn clear" onclick="clearAll()">Temizle</button>
-        <button class="btn send" onclick="sendWhatsApp()">WhatsApp’tan Gönder</button>
+        <button class="btn clear" id="btnClear" type="button"></button>
+        <button class="btn send" id="btnSend" type="button"></button>
       </div>
     </div>
   </div>
@@ -220,147 +269,321 @@
 </div>
 
 <footer>
-  Instagram: <a href="https://www.instagram.com/mirzaninmutfagi?igsh=czNydXQ2bm1qa3c2&utm_source=qr" target="_blank" rel="noopener">@mirzaninmutfagi</a>
+  Instagram:
+  <a href="https://www.instagram.com/mirzaninmutfagi?igsh=czNydXQ2bm1qa3c2&utm_source=qr" target="_blank" rel="noopener">@mirzaninmutfagi</a>
   <div class="small">© Mirzanin Mutfağı</div>
 </footer>
 
 <script>
   const WHATSAPP_NUMBER = "905350715215"; // +90 535 071 5215
 
-  // Menu data (TR first)
+  // ✅ bilingual menu data
   const sections = [
     {
-      title: "🔥 Kebaplar",
-      items: [
-        { id:"koobide", name:"Mirza Özel Koobide (2 Şiş)", desc:"Dana kıyma, soğan ve özel İran baharatları" },
-        { id:"joojeh", name:"Safranlı Tavuk Şiş (Joojeh)", desc:"Safran, yoğurt ve baharatlarla marine" },
-        { id:"kemikli", name:"Kemikli Tavuk Kebap", desc:"Geleneksel usul, sulu ve aromalı" },
-        { id:"chenjek", name:"Kuzu Şiş (Chenjek)", desc:"Marine kuzu kuşbaşı, yumuşak" },
-        { id:"bonfile", name:"Özel Dana Bonfile", desc:"Seçilmiş dana bonfile, çok yumuşak" }
+      titleTR:"🔥 Kebaplar",
+      titleFA:"🔥 کباب‌ها",
+      items:[
+        {
+          id:"koobide",
+          nameTR:"Mirza Özel Koobide (2 Şiş)",
+          nameFA:"کباب کوبیده مخصوص میرزا (۲ سیخ)",
+          descTR:"Dana kıyma, soğan ve özel İran baharatları",
+          descFA:"کباب گوشت چرخ‌کرده گاوی با پیاز و ادویه‌های مخصوص ایرانی."
+        },
+        {
+          id:"joojeh",
+          nameTR:"Safranlı Tavuk Şiş (Joojeh)",
+          nameFA:"جوجه کباب زعفرانی",
+          descTR:"Safran, yoğurt ve baharatlarla marine",
+          descFA:"مرغ مزه‌دارشده با زعفران، ماست و ادویه‌ها."
+        },
+        {
+          id:"kemikli",
+          nameTR:"Kemikli Tavuk Kebap",
+          nameFA:"جوجه با استخوان",
+          descTR:"Geleneksel usul, sulu ve aromalı",
+          descFA:"مرغ با استخوان، سنتی، آبدار و خوش‌عطر."
+        },
+        {
+          id:"chenjek",
+          nameTR:"Kuzu Şiş (Chenjek)",
+          nameFA:"کباب چنجه گوسفندی",
+          descTR:"Marine kuzu kuşbaşı, yumuşak",
+          descFA:"تکه‌های گوشت گوسفندی مزه‌دارشده، نرم و لذیذ."
+        },
+        {
+          id:"bonfile",
+          nameTR:"Özel Dana Bonfile",
+          nameFA:"کباب برگ مخصوص",
+          descTR:"Seçilmiş dana bonfile, çok yumuşak",
+          descFA:"تهیه‌شده از فیله مرغوب گاو، بسیار نرم."
+        }
       ]
     },
     {
-      title: "🍗 Geleneksel Yemekler",
-      items: [
-        { id:"zereshk", name:"Zereshk Pilavı & Tavuk", desc:"Safranlı pilav + ekşi zereshk ile" },
-        { id:"ghormeh", name:"Ghormeh Sabzi", desc:"Otlar, kırmızı fasulye ve et" },
-        { id:"gheymeh", name:"Gheymeh", desc:"Nohut, et ve domates sosu" },
-        { id:"gunun", name:"Günün Yemeği", desc:"Her gün taze, değişen ev yemeği" }
+      titleTR:"🍗 Geleneksel Yemekler",
+      titleFA:"🍗 غذاهای سنتی",
+      items:[
+        {
+          id:"zereshk",
+          nameTR:"Zereshk Pilavı & Tavuk",
+          nameFA:"زرشک‌پلو با مرغ",
+          descTR:"Safranlı pilav + ekşi zereshk ile",
+          descFA:"برنج زعفرانی همراه زرشک ترش و مرغ."
+        },
+        {
+          id:"ghormeh",
+          nameTR:"Ghormeh Sabzi",
+          nameFA:"خورشت قرمه‌سبزی",
+          descTR:"Otlar, kırmızı fasulye ve et",
+          descFA:"سبزی‌های معطر، لوبیا قرمز و گوشت."
+        },
+        {
+          id:"gheymeh",
+          nameTR:"Gheymeh",
+          nameFA:"خورشت قیمه",
+          descTR:"Nohut, et ve domates sosu",
+          descFA:"گوشت، لپه و سس گوجه‌فرنگی."
+        },
+        {
+          id:"gunun",
+          nameTR:"Günün Yemeği",
+          nameFA:"غذای روز",
+          descTR:"Her gün taze, değişen ev yemeği",
+          descFA:"غذای خانگی تازه، هر روز متفاوت."
+        }
       ]
     },
     {
-      title: "🥗 Meze & Salata",
-      items: [
-        { id:"shirazi", name:"Şirazi Salatası", desc:"Domates, salatalık, soğan, limonlu" },
-        { id:"musir", name:"Yoğurt & Musir", desc:"Özel İran sarımsağı ile aromatik" },
-        { id:"cacik", name:"Cacık (İran Usulü)", desc:"Yoğurt, salatalık, nane" },
-        { id:"zeytin", name:"İran Usulü Zeytin", desc:"Nar ekşisi, ceviz, özel baharat" }
+      titleTR:"🥗 Meze & Salata",
+      titleFA:"🥗 پیش‌غذا و سالاد",
+      items:[
+        {
+          id:"shirazi",
+          nameTR:"Şirazi Salatası",
+          nameFA:"سالاد شیرازی",
+          descTR:"Domates, salatalık, soğan, limonlu",
+          descFA:"گوجه، خیار و پیاز با طعم لیمو."
+        },
+        {
+          id:"musir",
+          nameTR:"Yoğurt & Musir",
+          nameFA:"ماست موسیر",
+          descTR:"Özel İran sarımsağı ile aromatik",
+          descFA:"ماست سنتی با موسیر."
+        },
+        {
+          id:"cacik",
+          nameTR:"Cacık (İran Usulü)",
+          nameFA:"ماست و خیار",
+          descTR:"Yoğurt, salatalık, nane",
+          descFA:"ماست مخلوط با خیار و نعناع."
+        },
+        {
+          id:"zeytin",
+          nameTR:"İran Usulü Zeytin",
+          nameFA:"زیتون پرورده",
+          descTR:"Nar ekşisi, ceviz, özel baharat",
+          descFA:"زیتون با گردو، رب انار و ادویه‌های ایرانی."
+        }
       ]
     },
     {
-      title: "🍰 Tatlılar",
-      items: [
-        { id:"sholezard", name:"Sholezard", desc:"Safran, gül suyu ve pirinç" },
-        { id:"helva", name:"İran Usulü Helva", desc:"Un, tereyağı ve safran" },
-        { id:"shirberenj", name:"Şir Berenj", desc:"Süt ve pirinçle ev yapımı" }
+      titleTR:"🍰 Tatlılar",
+      titleFA:"🍰 دسر",
+      items:[
+        {
+          id:"sholezard",
+          nameTR:"Sholezard",
+          nameFA:"شله‌زرد",
+          descTR:"Safran, gül suyu ve pirinç",
+          descFA:"برنج، زعفران و گلاب."
+        },
+        {
+          id:"helva",
+          nameTR:"İran Usulü Helva",
+          nameFA:"حلوا",
+          descTR:"Un, tereyağı ve safran",
+          descFA:"آرد، کره و زعفران."
+        },
+        {
+          id:"shirberenj",
+          nameTR:"Şir Berenj",
+          nameFA:"شیربرنج",
+          descTR:"Süt ve pirinçle ev yapımı",
+          descFA:"شیر و برنج، خانگی و سبک."
+        }
       ]
     },
     {
-      title: "🥤 İçecekler",
-      items: [
-        { id:"ayran", name:"Geleneksel Ayran", desc:"İran usulü yoğurt içeceği" },
-        { id:"kola", name:"Kola / Fanta", desc:"Soğuk gazlı içecekler" },
-        { id:"su", name:"Su", desc:"Doğal içme suyu" },
-        { id:"cay", name:"İran Çayı", desc:"Demlenmiş İran siyah çayı" }
+      titleTR:"🥤 İçecekler",
+      titleFA:"🥤 نوشیدنی",
+      items:[
+        {
+          id:"ayran",
+          nameTR:"Geleneksel Ayran",
+          nameFA:"دوغ سنتی",
+          descTR:"İran usulü yoğurt içeceği",
+          descFA:"نوشیدنی سنتی تهیه‌شده از ماست."
+        },
+        {
+          id:"kola",
+          nameTR:"Kola / Fanta",
+          nameFA:"نوشابه",
+          descTR:"Soğuk gazlı içecekler",
+          descFA:"نوشیدنی‌های گازدار."
+        },
+        {
+          id:"su",
+          nameTR:"Su",
+          nameFA:"آب معدنی",
+          descTR:"Doğal içme suyu",
+          descFA:"آب آشامیدنی."
+        },
+        {
+          id:"cay",
+          nameTR:"İran Çayı",
+          nameFA:"چای ایرانی",
+          descTR:"Demlenmiş İran siyah çayı",
+          descFA:"چای سیاه سنتی ایرانی، دم‌کشیده."
+        }
       ]
     }
   ];
 
-  const quantities = {}; // id -> qty
+  let lang = "TR";
+  const qty = {}; // id -> number
+
+  const el = (id)=>document.getElementById(id);
+
+  function t(tr, fa){ return lang === "TR" ? tr : fa; }
+
+  function setLang(newLang){
+    lang = newLang;
+
+    document.documentElement.lang = (lang==="TR" ? "tr" : "fa");
+    document.documentElement.dir  = (lang==="TR" ? "ltr" : "rtl");
+
+    el("btnTR").classList.toggle("active", lang==="TR");
+    el("btnFA").classList.toggle("active", lang==="FA");
+
+    el("noteBox").innerHTML = lang==="TR"
+      ? `<b>Online Sipariş:</b> Ürünleri seçin, adet belirleyin ve “WhatsApp’tan Gönder” butonuna basın.<br><span style="opacity:.8">Not: Fiyatlar şu an gösterilmiyor.</span>`
+      : `<b>سفارش آنلاین:</b> آیتم‌ها را انتخاب کن و با دکمه واتساپ ارسال کن.<br><span style="opacity:.8">فعلاً قیمت‌ها نمایش داده نمی‌شود.</span>`;
+
+    el("orderTitle").textContent = t("📝 Sipariş Notu (İsteğe bağlı)", "📝 توضیحات سفارش (اختیاری)");
+    el("note").placeholder = t("Örn: Acısız, az tuz, teslimat saati, vb.", "مثلاً: بدون پیاز، تند، زمان تحویل و ...");
+    el("name").placeholder = t("Ad Soyad (isteğe bağlı)", "نام و نام خانوادگی (اختیاری)");
+    el("address").placeholder = t("Adres / Konum (isteğe bağlı)", "آدرس / لوکیشن (اختیاری)");
+    el("btnClear").textContent = t("Temizle", "پاک کردن");
+    el("btnSend").textContent = t("WhatsApp’tan Gönder", "ارسال در واتساپ");
+    el("navHome").textContent = t("Home", "خانه");
+    el("navAbout").textContent = t("About", "درباره ما");
+
+    render();
+    updateSummary();
+  }
+
+  function inc(id){
+    qty[id] = (qty[id] || 0) + 1;
+    render();
+    updateSummary();
+  }
+  function dec(id){
+    qty[id] = Math.max(0, (qty[id] || 0) - 1);
+    render();
+    updateSummary();
+  }
 
   function render(){
-    const grid = document.getElementById("menuGrid");
+    const grid = el("menuGrid");
     grid.innerHTML = "";
 
     sections.forEach(sec=>{
       const box = document.createElement("div");
-      box.className = "section";
-      box.innerHTML = `<h2>${sec.title}</h2>`;
+      box.className = "section" + (lang==="FA" ? " rtl" : "");
+      box.innerHTML = `<h2>${lang==="TR" ? sec.titleTR : sec.titleFA}</h2>`;
 
       sec.items.forEach(it=>{
         const row = document.createElement("div");
         row.className = "item";
+
+        const name = (lang==="TR" ? it.nameTR : it.nameFA);
+        const desc = (lang==="TR" ? it.descTR : it.descFA);
+        const n = qty[it.id] || 0;
+
         row.innerHTML = `
-          <div>
-            <div class="name">${it.name}</div>
-            <div class="desc">${it.desc}</div>
+          <div style="flex:1 1 auto;">
+            <div class="name">${name}</div>
+            <div class="desc">${desc}</div>
           </div>
           <div class="qty">
-            <input type="number" min="0" value="${quantities[it.id] || 0}"
-              oninput="setQty('${it.id}', this.value)">
+            <button class="qbtn minus" type="button" aria-label="minus">−</button>
+            <div class="qnum">${n}</div>
+            <button class="qbtn plus" type="button" aria-label="plus">+</button>
           </div>
         `;
+
+        const [minusBtn, , plusBtn] = row.querySelectorAll("button, .qnum, button");
+        row.querySelector(".minus").onclick = () => dec(it.id);
+        row.querySelector(".plus").onclick  = () => inc(it.id);
+
         box.appendChild(row);
       });
 
       grid.appendChild(box);
     });
-
-    updateSummary();
   }
 
-  function setQty(id, val){
-    const n = Math.max(0, parseInt(val || "0", 10));
-    quantities[id] = n;
-    updateSummary();
+  function countAll(){
+    return Object.values(qty).reduce((a,b)=>a+(b||0),0);
   }
 
   function updateSummary(){
-    let count = 0;
-    Object.values(quantities).forEach(v=> count += (v || 0));
-    document.getElementById("summary").textContent = `Seçilen ürün: ${count}`;
+    el("summary").textContent = t(`Seçilen ürün: ${countAll()}`, `تعداد انتخاب‌شده: ${countAll()}`);
   }
 
   function clearAll(){
-    Object.keys(quantities).forEach(k=> quantities[k]=0);
-    document.getElementById("note").value = "";
-    document.getElementById("name").value = "";
-    document.getElementById("address").value = "";
+    Object.keys(qty).forEach(k=> qty[k]=0);
+    el("note").value = "";
+    el("name").value = "";
+    el("address").value = "";
     render();
+    updateSummary();
   }
 
   function sendWhatsApp(){
-    const note = document.getElementById("note").value.trim();
-    const name = document.getElementById("name").value.trim();
-    const address = document.getElementById("address").value.trim();
+    const note = el("note").value.trim();
+    const name = el("name").value.trim();
+    const address = el("address").value.trim();
 
     const lines = [];
-    lines.push("Mirzanin Mutfağı - Online Sipariş");
+    lines.push(t("Mirzanin Mutfağı - Online Sipariş", "Mirzanin Mutfağı - سفارش آنلاین"));
     lines.push("--------------------------------");
 
-    if(name) lines.push("Ad Soyad: " + name);
-    if(address) lines.push("Adres: " + address);
+    if(name) lines.push(t("Ad Soyad: ","نام: ") + name);
+    if(address) lines.push(t("Adres: ","آدرس: ") + address);
     if(name || address) lines.push("--------------------------------");
 
     let any = false;
     sections.forEach(sec=>{
       sec.items.forEach(it=>{
-        const q = quantities[it.id] || 0;
+        const q = qty[it.id] || 0;
         if(q > 0){
           any = true;
-          lines.push(`${q} x ${it.name}`);
+          lines.push(`${q} x ${lang==="TR" ? it.nameTR : it.nameFA}`);
         }
       });
     });
 
     if(!any){
-      alert("Lütfen en az 1 ürün seçin.");
+      alert(t("Lütfen en az 1 ürün seçin.", "لطفاً حداقل ۱ آیتم انتخاب کن."));
       return;
     }
 
     if(note){
       lines.push("--------------------------------");
-      lines.push("Not: " + note);
+      lines.push(t("Not: ","توضیح: ") + note);
     }
 
     const msg = encodeURIComponent(lines.join("\n"));
@@ -368,7 +591,14 @@
     window.open(url, "_blank");
   }
 
-  render();
+  // wire buttons
+  el("btnTR").onclick = () => setLang("TR");
+  el("btnFA").onclick = () => setLang("FA");
+  el("btnClear").onclick = clearAll;
+  el("btnSend").onclick = sendWhatsApp;
+
+  // start
+  setLang("TR");
 </script>
 
 </body>
