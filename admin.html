@@ -58,9 +58,7 @@
     th{font-weight:900;}
     .pill{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(90,24,154,.10); border:1px solid rgba(90,24,154,.18); font-weight:900;}
     .muted{opacity:.75; font-size:12px;}
-    .login{
-      max-width:520px; margin:34px auto 0; padding:0 16px;
-    }
+    .login{max-width:520px; margin:34px auto 0; padding:0 16px;}
     .hidden{display:none !important;}
   </style>
 </head>
@@ -97,7 +95,9 @@
     <div class="row">
       <div class="col"><input id="name" placeholder="نام مشتری / Müşteri adı" /></div>
       <div class="col"><input id="phone" placeholder="شماره تماس (مثال: 90535...)" /></div>
-      <div class="col"><input id="purchases" type="number" min="0" value="0" placeholder="تعداد خرید" /></div>
+      <div class="col">
+        <input id="purchases" type="number" min="0" value="0" placeholder="تعداد خرید (اختیاری)" />
+      </div>
     </div>
     <div style="height:10px"></div>
     <textarea id="note" rows="2" placeholder="یادداشت (اختیاری)"></textarea>
@@ -113,7 +113,7 @@
       </div>
     </div>
     <div class="muted" style="margin-top:10px;">
-      نکته: شماره را یکتا در نظر گرفتم. اگر شماره تکراری بزنی، همان مشتری آپدیت می‌شود.
+      نکته: شماره یکتا است. اگر همان شماره را دوباره وارد کنی، ردیف جدید ساخته نمی‌شود و تعداد خرید همان مشتری +1 می‌شود.
     </div>
   </div>
 
@@ -182,10 +182,11 @@
     return (s || "").replace(/\s+/g,"").replace(/^\+/, "");
   }
 
+  // ✅ تغییر اصلی همینجاست:
+  // اگر شماره تکراری باشد -> ردیف جدید ساخته نمی‌شود و purchases همان مشتری +1 می‌شود.
   function addCustomer(){
     const name = document.getElementById("name").value.trim();
     const phone = normalizePhone(document.getElementById("phone").value.trim());
-    const purchases = Math.max(0, parseInt(document.getElementById("purchases").value || "0", 10));
     const note = document.getElementById("note").value.trim();
 
     if(!name || !phone){
@@ -196,12 +197,24 @@
     const data = getData();
     const i = data.findIndex(x => x.phone === phone);
 
-    const obj = { name, phone, purchases, note, updatedAt: new Date().toISOString() };
+    if(i >= 0){
+      // شماره تکراری: فقط آپدیت + افزایش تعداد خرید
+      data[i].name = name;
+      data[i].note = note || data[i].note;
+      data[i].purchases = (data[i].purchases || 0) + 1;   // ✅ +1
+      data[i].updatedAt = new Date().toISOString();
+    } else {
+      // مشتری جدید: از 1 شروع می‌شود
+      data.push({
+        name,
+        phone,
+        purchases: 1,
+        note,
+        updatedAt: new Date().toISOString()
+      });
+    }
 
-    if(i >= 0) data[i] = obj;
-    else data.push(obj);
-
-    // sort by purchases desc
+    // مرتب‌سازی
     data.sort((a,b)=> (b.purchases||0) - (a.purchases||0));
 
     setData(data);
