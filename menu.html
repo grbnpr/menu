@@ -296,7 +296,6 @@
 <script>
   const WHATSAPP_NUMBER = "905350715215";
 
-  // ✅ NEW menu (fixed prices) — bilingual
   const sections = [
     {
       titleTR:"🍽️ Pilavlı Kebaplar",
@@ -304,7 +303,7 @@
       items:[
         {
           id:"chelo_koobide_2",
-          price:500,
+          price:499,
           nameTR:"Pilavlı Koobide (2 Şiş)",
           nameFA:"چلو کوبیده مخصوص میرزا (۲ سیخ)",
           descTR:"Dana kıyma kebabı, soğan ve İran baharatlarıyla; pilav ile servis edilir.",
@@ -312,7 +311,7 @@
         },
         {
           id:"chelo_koobide_1",
-          price:400,
+          price:399,
           nameTR:"Pilavlı Koobide (Tek Şiş)",
           nameFA:"چلو کوبیده تک سیخ",
           descTR:"Dana kıyma kebabı; pilav ile servis edilir.",
@@ -320,7 +319,7 @@
         },
         {
           id:"chelo_joojeh_safran",
-          price:400,
+          price:399,
           nameTR:"Pilavlı Safranlı Joojeh",
           nameFA:"چلو جوجه زعفرانی",
           descTR:"Safran, yoğurt ve baharatlarla marine tavuk şiş; pilav ile servis edilir.",
@@ -339,7 +338,7 @@
           price:649,
           nameTR:"Pilavlı Chenjek (Dana)",
           nameFA:"چلو کباب چنجه",
-          descTR:"Marine dana kuşbaşı; yumuşak ve lezzetli. Pilav ile servis edilir.",
+          descTR:"Marine dana kuşbaşı; yumuşak و lezzetli. Pilav ile servis edilir.",
           descFA:"تکه‌های گوشت گوساله مزه‌دارشده، نرم و لذیذ، کباب‌شده روی سیخ."
         },
         {
@@ -399,7 +398,7 @@
           price:399,
           nameTR:"Gheymeh",
           nameFA:"خورشت قیمه",
-          descTR:"Et, nohut (lape) ve domates sosu (İran pirinci ile).",
+          descTR:"Et, lape ve domates sosu (İran pirinci ile).",
           descFA:"خورشتی سنتی با گوشت، لپه و سس گوجه‌فرنگی. همراه با برنج ایرانی"
         },
         {
@@ -415,7 +414,7 @@
 
     {
       titleTR:"🥗 Meze & Mezeler",
-      titleFA:"🥗 پیش‌غذا و مزه‌مزه",
+      titleFA:"🥗 پیش‌غذا و مزه",
       items:[
         {
           id:"mirza_ghasemi",
@@ -423,7 +422,7 @@
           nameTR:"Mirza Ghasemi",
           nameFA:"میرزا قاسمی",
           descTR:"Köz patlıcan, domates, sarımsak ve yumurta.",
-          descFA:"بادمجون کبابی همراه با گوجه، سیر و تخم مرغ"
+          descFA:"بادمجون کبابی همراه با گوجه, سیر و تخم مرغ"
         },
         {
           id:"zeytoon_parvarde",
@@ -440,19 +439,19 @@
       titleTR:"🥤 İçecekler",
       titleFA:"🥤 نوشیدنی",
       items:[
-        { id:"doogh", price:null, nameTR:"Ayran (Geleneksel)", nameFA:"دوغ سنتی", descTR:"Soğuk yoğurt içeceği.", descFA:"نوشیدنی سنتی تهیه‌شده از ماست." },
-        { id:"coke", price:null, nameTR:"Coca-Cola", nameFA:"کوکاکولا", descTR:"Gazlı içecek.", descFA:"نوشیدنی گازدار." },
-        { id:"fanta", price:null, nameTR:"Fanta", nameFA:"فانتا", descTR:"Gazlı içecek.", descFA:"نوشیدنی گازدار." },
-        { id:"sprite", price:null, nameTR:"Sprite", nameFA:"اسپرایت", descTR:"Gazlı içecek.", descFA:"نوشیدنی گازدار." },
-        { id:"water_spark", price:null, nameTR:"Maden Suyu (Gazlı)", nameFA:"آب معدنی گازدار", descTR:"Gazlı maden suyu.", descFA:"آب آشامیدنی." },
-        { id:"water", price:null, nameTR:"Su", nameFA:"آب آشامیدنی", descTR:"Doğal içme suyu.", descFA:"آب آشامیدنی." },
+        { id:"doogh", price:null, nameTR:"Ayran ", nameFA:"دوغ ", descTR:"Soğuk yoğurt içeceği.", descFA:"دوغ سنتی" },
+        { id:"coke", price:null, nameTR:"Coca-Cola", nameFA:"کوکاکولا", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
+        { id:"fanta", price:null, nameTR:"Fanta", nameFA:"فانتا", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
+        { id:"sprite", price:null, nameTR:"Sprite", nameFA:"اسپرایت", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
+        { id:"water_spark", price:null, nameTR:"Maden Suyu (Gazlı)", nameFA:"آب معدنی گاز دار", descTR:"Gazlı maden suyu.", descFA:"آب معدنی گاز دار" },
+        { id:"water", price:null, nameTR:"Su", nameFA:"آب آشامیدنی", descTR:"Doğal içme suyu.", descFA:"آب آشامیدنی" },
         { id:"tea", price:null, nameTR:"İran Çayı", nameFA:"چای ایرانی", descTR:"Demlenmiş siyah çay.", descFA:"چای سیاه سنتی ایرانی، دم‌کشیده." }
       ]
     }
   ];
 
   let lang = "TR";
-  const qty = {}; // id -> number
+  const qty = {};
 
   const el = (id)=>document.getElementById(id);
   function t(tr, fa){ return lang === "TR" ? tr : fa; }
@@ -488,16 +487,8 @@
     updateSummary();
   }
 
-  function inc(id){
-    qty[id] = (qty[id] || 0) + 1;
-    render();
-    updateSummary();
-  }
-  function dec(id){
-    qty[id] = Math.max(0, (qty[id] || 0) - 1);
-    render();
-    updateSummary();
-  }
+  function inc(id){ qty[id] = (qty[id] || 0) + 1; render(); updateSummary(); }
+  function dec(id){ qty[id] = Math.max(0, (qty[id] || 0) - 1); render(); updateSummary(); }
 
   function render(){
     const grid = el("menuGrid");
@@ -542,10 +533,7 @@
     });
   }
 
-  function countAll(){
-    return Object.values(qty).reduce((a,b)=>a+(b||0),0);
-  }
-
+  function countAll(){ return Object.values(qty).reduce((a,b)=>a+(b||0),0); }
   function updateSummary(){
     el("summary").textContent = t(`Seçilen ürün: ${countAll()}`, `تعداد انتخاب‌شده: ${countAll()}`);
   }
@@ -600,13 +588,11 @@
     window.open(url, "_blank");
   }
 
-  // wire buttons
   el("btnTR").onclick = () => setLang("TR");
   el("btnFA").onclick = () => setLang("FA");
   el("btnClear").onclick = clearAll;
   el("btnSend").onclick = sendWhatsApp;
 
-  // start
   setLang("TR");
 </script>
 
