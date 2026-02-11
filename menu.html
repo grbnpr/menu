@@ -11,7 +11,6 @@
       --yellow:#f6c21c;
       --text:#111;
       --muted:#444;
-      --card:#ffffff;
       --border:rgba(0,0,0,.08);
     }
     *{box-sizing:border-box}
@@ -138,8 +137,28 @@
       justify-content:space-between;
     }
     .item:first-of-type{border-top:none}
+
+    .topline{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
     .name{font-weight:900}
-    .desc{margin:4px 0 0;color:#444;font-size:13px;line-height:1.6}
+    .desc{margin:6px 0 0;color:#444;font-size:13px;line-height:1.6}
+
+    /* ✅ price badge */
+    .price{
+      font-weight:900;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(246,194,28,.25);
+      border:1px solid rgba(246,194,28,.7);
+      color:#000;
+      white-space:nowrap;
+    }
 
     /* ✅ plus/minus controls */
     .qty{
@@ -275,178 +294,159 @@
 </footer>
 
 <script>
-  const WHATSAPP_NUMBER = "905350715215"; // +90 535 071 5215
+  const WHATSAPP_NUMBER = "905350715215";
 
-  // ✅ bilingual menu data
+  // ✅ NEW menu (fixed prices) — bilingual
   const sections = [
     {
-      titleTR:"🔥 Kebaplar",
-      titleFA:"🔥 کباب‌ها",
+      titleTR:"🍽️ Pilavlı Kebaplar",
+      titleFA:"🍽️ چلو کباب‌ها",
       items:[
         {
-          id:"koobide",
-          nameTR:"Mirza Özel Koobide (2 Şiş)",
-          nameFA:"کباب کوبیده مخصوص میرزا (۲ سیخ)",
-          descTR:"Dana kıyma, soğan ve özel İran baharatları",
-          descFA:"کباب گوشت چرخ‌کرده گاوی با پیاز و ادویه‌های مخصوص ایرانی."
+          id:"chelo_koobide_2",
+          price:500,
+          nameTR:"Pilavlı Koobide (2 Şiş)",
+          nameFA:"چلو کوبیده مخصوص میرزا (۲ سیخ)",
+          descTR:"Dana kıyma kebabı, soğan ve İran baharatlarıyla; pilav ile servis edilir.",
+          descFA:"کباب گوشت چرخ‌کرده گاوی که با پیاز و ادویه‌های مخصوص ایرانی مزه‌دار شده و روی آتش کباب می‌شود."
         },
         {
-          id:"joojeh",
-          nameTR:"Safranlı Tavuk Şiş (Joojeh)",
-          nameFA:"جوجه کباب زعفرانی",
-          descTR:"Safran, yoğurt ve baharatlarla marine",
-          descFA:"مرغ مزه‌دارشده با زعفران، ماست و ادویه‌ها."
+          id:"chelo_koobide_1",
+          price:400,
+          nameTR:"Pilavlı Koobide (Tek Şiş)",
+          nameFA:"چلو کوبیده تک سیخ",
+          descTR:"Dana kıyma kebabı; pilav ile servis edilir.",
+          descFA:"کباب گوشت چرخ‌کرده گاوی که با پیاز و ادویه‌های مخصوص ایرانی مزه‌دار شده و روی آتش کباب می‌شود."
         },
         {
-          id:"kemikli",
-          nameTR:"Kemikli Tavuk Kebap",
-          nameFA:"جوجه با استخوان",
-          descTR:"Geleneksel usul, sulu ve aromalı",
-          descFA:"مرغ با استخوان، سنتی، آبدار و خوش‌عطر."
+          id:"chelo_joojeh_safran",
+          price:400,
+          nameTR:"Pilavlı Safranlı Joojeh",
+          nameFA:"چلو جوجه زعفرانی",
+          descTR:"Safran, yoğurt ve baharatlarla marine tavuk şiş; pilav ile servis edilir.",
+          descFA:"تکه‌های نرم مرغ که با زعفران، ماست و ادویه‌ها مزه‌دار شده و به صورت سیخی کباب می‌شود."
         },
         {
-          id:"chenjek",
-          nameTR:"Kuzu Şiş (Chenjek)",
-          nameFA:"کباب چنجه گوسفندی",
-          descTR:"Marine kuzu kuşbaşı, yumuşak",
-          descFA:"تکه‌های گوشت گوسفندی مزه‌دارشده، نرم و لذیذ."
+          id:"chelo_joojeh_kemikli",
+          price:399,
+          nameTR:"Pilavlı Kemikli Tavuk",
+          nameFA:"چلو جوجه با استخوان",
+          descTR:"Geleneksel kemikli tavuk; sulu ve aromalı. Pilav ile servis edilir.",
+          descFA:"مرغ با استخوان که به‌صورت سنتی کباب شده و آبدار و خوش‌عطر است."
         },
         {
-          id:"bonfile",
-          nameTR:"Özel Dana Bonfile",
-          nameFA:"کباب برگ مخصوص",
-          descTR:"Seçilmiş dana bonfile, çok yumuşak",
-          descFA:"تهیه‌شده از فیله مرغوب گاو، بسیار نرم."
+          id:"chelo_chenjek",
+          price:649,
+          nameTR:"Pilavlı Chenjek (Dana)",
+          nameFA:"چلو کباب چنجه",
+          descTR:"Marine dana kuşbaşı; yumuşak ve lezzetli. Pilav ile servis edilir.",
+          descFA:"تکه‌های گوشت گوساله مزه‌دارشده، نرم و لذیذ، کباب‌شده روی سیخ."
+        },
+        {
+          id:"chelo_torsh",
+          price:649,
+          nameTR:"Pilavlı Kebap Torsh",
+          nameFA:"چلو کباب ترش",
+          descTR:"Ceviz, nar ekşisi ve özel baharatlarla marine dana. Pilav ile servis edilir.",
+          descFA:"تکه‌های گوشت گوساله مزه‌دارشده با گردو و رب انار . ادویه های مخصوص، نرم و لذیذ، کباب‌شده روی سیخ."
+        },
+        {
+          id:"chelo_barg",
+          price:749,
+          nameTR:"Pilavlı Barg (Özel)",
+          nameFA:"چلو برگ مخصوص",
+          descTR:"Seçilmiş dana eti; çok yumuşak ve kaliteli. Pilav ile servis edilir.",
+          descFA:"تهیه‌شده از فیله‌ی مرغوب گوشت گوساله ، بسیار نرم و باکیفیت."
         }
       ]
     },
+
+    {
+      titleTR:"🍢 Tek Şiş Kebaplar",
+      titleFA:"🍢 کباب‌های تک سیخ",
+      items:[
+        { id:"tek_koobide", price:229, nameTR:"Koobide (Tek Şiş)", nameFA:"کوبیده", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
+        { id:"tek_joojeh_safran", price:229, nameTR:"Safranlı Joojeh (Tek Şiş)", nameFA:"جوجه زعفرانی", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
+        { id:"tek_joojeh_kemikli", price:229, nameTR:"Kemikli Tavuk (Tek)", nameFA:"جوجه با استخوان", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
+        { id:"tek_chenjek", price:449, nameTR:"Chenjek (Tek)", nameFA:"کباب چنجه", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
+        { id:"tek_torsh", price:449, nameTR:"Kebap Torsh (Tek)", nameFA:"کباب ترش", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
+        { id:"tek_barg", price:549, nameTR:"Barg (Tek)", nameFA:"کباب برگ", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." }
+      ]
+    },
+
     {
       titleTR:"🍗 Geleneksel Yemekler",
       titleFA:"🍗 غذاهای سنتی",
       items:[
         {
           id:"zereshk",
+          price:399,
           nameTR:"Zereshk Pilavı & Tavuk",
           nameFA:"زرشک‌پلو با مرغ",
-          descTR:"Safranlı pilav + ekşi zereshk ile",
-          descFA:"برنج زعفرانی همراه زرشک ترش و مرغ."
+          descTR:"Safranlı pilav, zereshk ve tavuk (İran pirinci ile).",
+          descFA:"برنج زعفرانی ایرانی همراه با زرشک ترش و خوش‌عطر، سرو شده با مرغ. همراه با برنج ایرانی"
         },
         {
           id:"ghormeh",
+          price:399,
           nameTR:"Ghormeh Sabzi",
           nameFA:"خورشت قرمه‌سبزی",
-          descTR:"Otlar, kırmızı fasulye ve et",
-          descFA:"سبزی‌های معطر، لوبیا قرمز و گوشت."
+          descTR:"Otlar, kırmızı fasulye ve et (İran pirinci ile).",
+          descFA:"مشهورترین غذای ایرانی، تهیه‌شده از سبزی‌های معطر، لوبیا قرمز و گوشت. همراه با برنج ایرانی"
         },
         {
           id:"gheymeh",
+          price:399,
           nameTR:"Gheymeh",
           nameFA:"خورشت قیمه",
-          descTR:"Nohut, et ve domates sosu",
-          descFA:"گوشت، لپه و سس گوجه‌فرنگی."
+          descTR:"Et, nohut (lape) ve domates sosu (İran pirinci ile).",
+          descFA:"خورشتی سنتی با گوشت، لپه و سس گوجه‌فرنگی. همراه با برنج ایرانی"
         },
         {
-          id:"gunun",
+          id:"daily",
+          price:null,
           nameTR:"Günün Yemeği",
           nameFA:"غذای روز",
-          descTR:"Her gün taze, değişen ev yemeği",
-          descFA:"غذای خانگی تازه، هر روز متفاوت."
+          descTR:"Her gün taze, değişen ev yemeği.",
+          descFA:"غذای خانگی تازه که هر روز متفاوت و همان روز تهیه می‌شود."
         }
       ]
     },
+
     {
-      titleTR:"🥗 Meze & Salata",
-      titleFA:"🥗 پیش‌غذا و سالاد",
+      titleTR:"🥗 Meze & Mezeler",
+      titleFA:"🥗 پیش‌غذا و مزه‌مزه",
       items:[
         {
-          id:"shirazi",
-          nameTR:"Şirazi Salatası",
-          nameFA:"سالاد شیرازی",
-          descTR:"Domates, salatalık, soğan, limonlu",
-          descFA:"گوجه، خیار و پیاز با طعم لیمو."
+          id:"mirza_ghasemi",
+          price:199,
+          nameTR:"Mirza Ghasemi",
+          nameFA:"میرزا قاسمی",
+          descTR:"Köz patlıcan, domates, sarımsak ve yumurta.",
+          descFA:"بادمجون کبابی همراه با گوجه، سیر و تخم مرغ"
         },
         {
-          id:"musir",
-          nameTR:"Yoğurt & Musir",
-          nameFA:"ماست موسیر",
-          descTR:"Özel İran sarımsağı ile aromatik",
-          descFA:"ماست سنتی با موسیر."
-        },
-        {
-          id:"cacik",
-          nameTR:"Cacık (İran Usulü)",
-          nameFA:"ماست و خیار",
-          descTR:"Yoğurt, salatalık, nane",
-          descFA:"ماست مخلوط با خیار و نعناع."
-        },
-        {
-          id:"zeytin",
-          nameTR:"İran Usulü Zeytin",
+          id:"zeytoon_parvarde",
+          price:99,
+          nameTR:"Zeytin (İran Usulü)",
           nameFA:"زیتون پرورده",
-          descTR:"Nar ekşisi, ceviz, özel baharat",
-          descFA:"زیتون با گردو، رب انار و ادویه‌های ایرانی."
+          descTR:"Ceviz, nar ekşisi ve İran baharatlarıyla.",
+          descFA:"زیتون مزه‌دارشده با گردو، رب انار و ادویه‌های ایرانی."
         }
       ]
     },
-    {
-      titleTR:"🍰 Tatlılar",
-      titleFA:"🍰 دسر",
-      items:[
-        {
-          id:"sholezard",
-          nameTR:"Sholezard",
-          nameFA:"شله‌زرد",
-          descTR:"Safran, gül suyu ve pirinç",
-          descFA:"برنج، زعفران و گلاب."
-        },
-        {
-          id:"helva",
-          nameTR:"İran Usulü Helva",
-          nameFA:"حلوا",
-          descTR:"Un, tereyağı ve safran",
-          descFA:"آرد، کره و زعفران."
-        },
-        {
-          id:"shirberenj",
-          nameTR:"Şir Berenj",
-          nameFA:"شیربرنج",
-          descTR:"Süt ve pirinçle ev yapımı",
-          descFA:"شیر و برنج، خانگی و سبک."
-        }
-      ]
-    },
+
     {
       titleTR:"🥤 İçecekler",
       titleFA:"🥤 نوشیدنی",
       items:[
-        {
-          id:"ayran",
-          nameTR:"Geleneksel Ayran",
-          nameFA:"دوغ سنتی",
-          descTR:"İran usulü yoğurt içeceği",
-          descFA:"نوشیدنی سنتی تهیه‌شده از ماست."
-        },
-        {
-          id:"kola",
-          nameTR:"Kola / Fanta",
-          nameFA:"نوشابه",
-          descTR:"Soğuk gazlı içecekler",
-          descFA:"نوشیدنی‌های گازدار."
-        },
-        {
-          id:"su",
-          nameTR:"Su",
-          nameFA:"آب معدنی",
-          descTR:"Doğal içme suyu",
-          descFA:"آب آشامیدنی."
-        },
-        {
-          id:"cay",
-          nameTR:"İran Çayı",
-          nameFA:"چای ایرانی",
-          descTR:"Demlenmiş İran siyah çayı",
-          descFA:"چای سیاه سنتی ایرانی، دم‌کشیده."
-        }
+        { id:"doogh", price:null, nameTR:"Ayran (Geleneksel)", nameFA:"دوغ سنتی", descTR:"Soğuk yoğurt içeceği.", descFA:"نوشیدنی سنتی تهیه‌شده از ماست." },
+        { id:"coke", price:null, nameTR:"Coca-Cola", nameFA:"کوکاکولا", descTR:"Gazlı içecek.", descFA:"نوشیدنی گازدار." },
+        { id:"fanta", price:null, nameTR:"Fanta", nameFA:"فانتا", descTR:"Gazlı içecek.", descFA:"نوشیدنی گازدار." },
+        { id:"sprite", price:null, nameTR:"Sprite", nameFA:"اسپرایت", descTR:"Gazlı içecek.", descFA:"نوشیدنی گازدار." },
+        { id:"water_spark", price:null, nameTR:"Maden Suyu (Gazlı)", nameFA:"آب معدنی گازدار", descTR:"Gazlı maden suyu.", descFA:"آب آشامیدنی." },
+        { id:"water", price:null, nameTR:"Su", nameFA:"آب آشامیدنی", descTR:"Doğal içme suyu.", descFA:"آب آشامیدنی." },
+        { id:"tea", price:null, nameTR:"İran Çayı", nameFA:"چای ایرانی", descTR:"Demlenmiş siyah çay.", descFA:"چای سیاه سنتی ایرانی، دم‌کشیده." }
       ]
     }
   ];
@@ -455,8 +455,12 @@
   const qty = {}; // id -> number
 
   const el = (id)=>document.getElementById(id);
-
   function t(tr, fa){ return lang === "TR" ? tr : fa; }
+
+  function formatPrice(p){
+    if(p === null || p === undefined || p === "") return "";
+    return `₺${p}`;
+  }
 
   function setLang(newLang){
     lang = newLang;
@@ -468,8 +472,8 @@
     el("btnFA").classList.toggle("active", lang==="FA");
 
     el("noteBox").innerHTML = lang==="TR"
-      ? `<b>Online Sipariş:</b> Ürünleri seçin, adet belirleyin ve “WhatsApp’tan Gönder” butonuna basın.<br><span style="opacity:.8">Not: Fiyatlar şu an gösterilmiyor.</span>`
-      : `<b>سفارش آنلاین:</b> آیتم‌ها را انتخاب کن و با دکمه واتساپ ارسال کن.<br><span style="opacity:.8">فعلاً قیمت‌ها نمایش داده نمی‌شود.</span>`;
+      ? `<b>Online Sipariş:</b> Ürünleri seçin, adet belirleyin ve “WhatsApp’tan Gönder” butonuna basın.`
+      : `<b>سفارش آنلاین:</b> آیتم‌ها را انتخاب کن، تعداد را مشخص کن و با دکمه واتساپ ارسال کن.`;
 
     el("orderTitle").textContent = t("📝 Sipariş Notu (İsteğe bağlı)", "📝 توضیحات سفارش (اختیاری)");
     el("note").placeholder = t("Örn: Acısız, az tuz, teslimat saati, vb.", "مثلاً: بدون پیاز، تند، زمان تحویل و ...");
@@ -511,10 +515,14 @@
         const name = (lang==="TR" ? it.nameTR : it.nameFA);
         const desc = (lang==="TR" ? it.descTR : it.descFA);
         const n = qty[it.id] || 0;
+        const priceText = formatPrice(it.price);
 
         row.innerHTML = `
           <div style="flex:1 1 auto;">
-            <div class="name">${name}</div>
+            <div class="topline">
+              <div class="name">${name}</div>
+              ${priceText ? `<div class="price">${priceText}</div>` : ``}
+            </div>
             <div class="desc">${desc}</div>
           </div>
           <div class="qty">
@@ -524,7 +532,6 @@
           </div>
         `;
 
-        const [minusBtn, , plusBtn] = row.querySelectorAll("button, .qnum, button");
         row.querySelector(".minus").onclick = () => dec(it.id);
         row.querySelector(".plus").onclick  = () => inc(it.id);
 
@@ -571,7 +578,9 @@
         const q = qty[it.id] || 0;
         if(q > 0){
           any = true;
-          lines.push(`${q} x ${lang==="TR" ? it.nameTR : it.nameFA}`);
+          const nm = (lang==="TR" ? it.nameTR : it.nameFA);
+          const pr = formatPrice(it.price);
+          lines.push(`${q} x ${nm}${pr ? " — " + pr : ""}`);
         }
       });
     });
