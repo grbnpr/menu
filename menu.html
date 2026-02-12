@@ -149,7 +149,6 @@
     .name{font-weight:900}
     .desc{margin:6px 0 0;color:#444;font-size:13px;line-height:1.6}
 
-    /* ✅ price badge */
     .price{
       font-weight:900;
       padding:6px 10px;
@@ -160,7 +159,6 @@
       white-space:nowrap;
     }
 
-    /* ✅ plus/minus controls */
     .qty{
       min-width:150px;
       display:flex;
@@ -239,7 +237,6 @@
     footer a{color:var(--purple);font-weight:900;text-decoration:none}
     .small{margin-top:6px;opacity:.75;font-size:12px}
 
-    /* ✅ RTL mode when FA */
     .rtl{direction:rtl; text-align:right;}
   </style>
 </head>
@@ -326,6 +323,14 @@
           descFA:"تکه‌های نرم مرغ که با زعفران، ماست و ادویه‌ها مزه‌دار شده و به صورت سیخی کباب می‌شود."
         },
         {
+          id:"chelo_joojeh_torsh",
+          price:399,
+          nameTR:"Pilavlı Tavuk Torsh",
+          nameFA:"چلو جوجه ترش",
+          descTR:"Nar ekşisi ve özel baharatlarla marine tavuk şiş; pilav ile servis edilir.",
+          descFA:"تکه‌های نرم مرغ که با رب انار و ادویه‌های خاص مزه‌دار شده و به صورت سیخی کباب می‌شود."
+        },
+        {
           id:"chelo_joojeh_kemikli",
           price:399,
           nameTR:"Pilavlı Kemikli Tavuk",
@@ -338,7 +343,7 @@
           price:649,
           nameTR:"Pilavlı Chenjek (Dana)",
           nameFA:"چلو کباب چنجه",
-          descTR:"Marine dana kuşbaşı; yumuşak و lezzetli. Pilav ile servis edilir.",
+          descTR:"Marine dana kuşbaşı; yumuşak ve lezzetli. Pilav ile servis edilir.",
           descFA:"تکه‌های گوشت گوساله مزه‌دارشده، نرم و لذیذ، کباب‌شده روی سیخ."
         },
         {
@@ -366,6 +371,7 @@
       items:[
         { id:"tek_koobide", price:229, nameTR:"Koobide (Tek Şiş)", nameFA:"کوبیده", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
         { id:"tek_joojeh_safran", price:229, nameTR:"Safranlı Joojeh (Tek Şiş)", nameFA:"جوجه زعفرانی", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
+        { id:"tek_joojeh_torsh", price:229, nameTR:"Tavuk Torsh (Tek Şiş)", nameFA:"جوجه ترش", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
         { id:"tek_joojeh_kemikli", price:229, nameTR:"Kemikli Tavuk (Tek)", nameFA:"جوجه با استخوان", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
         { id:"tek_chenjek", price:449, nameTR:"Chenjek (Tek)", nameFA:"کباب چنجه", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
         { id:"tek_torsh", price:449, nameTR:"Kebap Torsh (Tek)", nameFA:"کباب ترش", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
@@ -398,7 +404,7 @@
           price:399,
           nameTR:"Gheymeh",
           nameFA:"خورشت قیمه",
-          descTR:"Et, lape ve domates sosu (İran pirinci ile).",
+          descTR:"Et, lape و domates sosu (İran pirinci ile).",
           descFA:"خورشتی سنتی با گوشت، لپه و سس گوجه‌فرنگی. همراه با برنج ایرانی"
         },
         {
@@ -421,7 +427,7 @@
           price:199,
           nameTR:"Mirza Ghasemi",
           nameFA:"میرزا قاسمی",
-          descTR:"Köz patlıcan, domates, sarımsak ve yumurta.",
+          descTR:"Köz patlıcan, domates, sarımsak و yumurta.",
           descFA:"بادمجون کبابی همراه با گوجه, سیر و تخم مرغ"
         },
         {
@@ -439,7 +445,7 @@
       titleTR:"🥤 İçecekler",
       titleFA:"🥤 نوشیدنی",
       items:[
-        { id:"doogh", price:null, nameTR:"Ayran ", nameFA:"دوغ ", descTR:"Soğuk yoğurt içeceği.", descFA:"دوغ سنتی" },
+        { id:"doogh", price:null, nameTR:"Ayran (Geleneksel)", nameFA:"دوغ سنتی", descTR:"Soğuk yoğurt içeceği.", descFA:"دوغ سنتی" },
         { id:"coke", price:null, nameTR:"Coca-Cola", nameFA:"کوکاکولا", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
         { id:"fanta", price:null, nameTR:"Fanta", nameFA:"فانتا", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
         { id:"sprite", price:null, nameTR:"Sprite", nameFA:"اسپرایت", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
@@ -452,7 +458,6 @@
 
   let lang = "TR";
   const qty = {};
-
   const el = (id)=>document.getElementById(id);
   function t(tr, fa){ return lang === "TR" ? tr : fa; }
 
@@ -463,7 +468,6 @@
 
   function setLang(newLang){
     lang = newLang;
-
     document.documentElement.lang = (lang==="TR" ? "tr" : "fa");
     document.documentElement.dir  = (lang==="TR" ? "ltr" : "rtl");
 
