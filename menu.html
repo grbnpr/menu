@@ -83,6 +83,8 @@
       border:1px solid rgba(255,255,255,.22);
       box-shadow:none;
       padding:9px 12px;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     nav button.lang.active{
       background:var(--yellow);
@@ -138,6 +140,38 @@
     }
     .item:first-of-type{border-top:none}
 
+    /* ✅ layout for image + text */
+    .left{
+      flex:1 1 auto;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      min-width:0;
+    }
+
+    .food-img{
+      width:92px;
+      height:92px;
+      border-radius:16px;
+      object-fit:cover;
+      border:1px solid rgba(0,0,0,.10);
+      background:#fff;
+      box-shadow:0 10px 18px rgba(0,0,0,.08);
+      flex:0 0 auto;
+    }
+
+    /* if image missing, hide it (prevents broken icon) */
+    .food-img.hide{display:none;}
+
+    @media (max-width:520px){
+      .food-img{width:82px;height:82px;border-radius:14px;}
+    }
+
+    .meta{
+      flex:1 1 auto;
+      min-width:0;
+    }
+
     .topline{
       display:flex;
       align-items:center;
@@ -175,6 +209,8 @@
       font-weight:900;
       cursor:pointer;
       box-shadow:0 10px 18px rgba(0,0,0,.10);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     .qbtn.minus{background:#fff;color:#000;border:2px solid rgba(0,0,0,.12); box-shadow:none;}
     .qbtn.plus{background:var(--yellow);color:#000;}
@@ -205,6 +241,8 @@
       border-radius:16px;
       box-shadow:0 10px 22px rgba(0,0,0,.12);
       transition:transform .08s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     .btn:active{transform:scale(.99)}
     .btn.send{background:var(--yellow);color:#000;}
@@ -238,6 +276,8 @@
     .small{margin-top:6px;opacity:.75;font-size:12px}
 
     .rtl{direction:rtl; text-align:right;}
+    .rtl .left{flex-direction:row-reverse;}
+    .rtl .topline{justify-content:space-between;}
   </style>
 </head>
 <body>
@@ -259,7 +299,6 @@
 </header>
 
 <div class="wrap">
-
   <div class="note" id="noteBox"></div>
 
   <div class="section">
@@ -281,7 +320,6 @@
   </div>
 
   <div class="grid" id="menuGrid"></div>
-
 </div>
 
 <footer>
@@ -301,6 +339,7 @@
         {
           id:"chelo_koobide_2",
           price:499,
+          img:"images/chelo-koobide-2.jpg",
           nameTR:"Pilavlı Koobide (2 Şiş)",
           nameFA:"چلو کوبیده مخصوص میرزا (۲ سیخ)",
           descTR:"Dana kıyma kebabı, soğan ve İran baharatlarıyla; pilav ile servis edilir.",
@@ -309,6 +348,7 @@
         {
           id:"chelo_koobide_1",
           price:399,
+          img:"images/chelo-koobide-1.jpg",
           nameTR:"Pilavlı Koobide (Tek Şiş)",
           nameFA:"چلو کوبیده تک سیخ",
           descTR:"Dana kıyma kebabı; pilav ile servis edilir.",
@@ -317,6 +357,7 @@
         {
           id:"chelo_joojeh_safran",
           price:399,
+          img:"images/chelo-joojeh-safran.jpg",
           nameTR:"Pilavlı Safranlı Joojeh",
           nameFA:"چلو جوجه زعفرانی",
           descTR:"Safran, yoğurt ve baharatlarla marine tavuk şiş; pilav ile servis edilir.",
@@ -325,6 +366,7 @@
         {
           id:"chelo_joojeh_torsh",
           price:399,
+          img:"images/chelo-joojeh-torsh.jpg",
           nameTR:"Pilavlı Tavuk Torsh",
           nameFA:"چلو جوجه ترش",
           descTR:"Nar ekşisi ve özel baharatlarla marine tavuk şiş; pilav ile servis edilir.",
@@ -333,6 +375,7 @@
         {
           id:"chelo_joojeh_kemikli",
           price:399,
+          img:"images/chelo-joojeh-bone.jpg",
           nameTR:"Pilavlı Kemikli Tavuk",
           nameFA:"چلو جوجه با استخوان",
           descTR:"Geleneksel kemikli tavuk; sulu ve aromalı. Pilav ile servis edilir.",
@@ -341,6 +384,7 @@
         {
           id:"chelo_chenjek",
           price:649,
+          img:"images/chelo-chenjeh.jpg",
           nameTR:"Pilavlı Chenjek (Dana)",
           nameFA:"چلو کباب چنجه",
           descTR:"Marine dana kuşbaşı; yumuşak ve lezzetli. Pilav ile servis edilir.",
@@ -349,6 +393,7 @@
         {
           id:"chelo_torsh",
           price:649,
+          img:"images/chelo-torsh.jpg",
           nameTR:"Pilavlı Kebap Torsh",
           nameFA:"چلو کباب ترش",
           descTR:"Ceviz, nar ekşisi ve özel baharatlarla marine dana. Pilav ile servis edilir.",
@@ -357,6 +402,7 @@
         {
           id:"chelo_barg",
           price:749,
+          img:"images/chelo-barg.jpg",
           nameTR:"Pilavlı Barg (Özel)",
           nameFA:"چلو برگ مخصوص",
           descTR:"Seçilmiş dana eti; çok yumuşak ve kaliteli. Pilav ile servis edilir.",
@@ -369,13 +415,13 @@
       titleTR:"🍢 Tek Şiş Kebaplar",
       titleFA:"🍢 کباب‌های تک سیخ",
       items:[
-        { id:"tek_koobide", price:229, nameTR:"Koobide (Tek Şiş)", nameFA:"کوبیده", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
-        { id:"tek_joojeh_safran", price:229, nameTR:"Safranlı Joojeh (Tek Şiş)", nameFA:"جوجه زعفرانی", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
-        { id:"tek_joojeh_torsh", price:229, nameTR:"Tavuk Torsh (Tek Şiş)", nameFA:"جوجه ترش", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
-        { id:"tek_joojeh_kemikli", price:229, nameTR:"Kemikli Tavuk (Tek)", nameFA:"جوجه با استخوان", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
-        { id:"tek_chenjek", price:449, nameTR:"Chenjek (Tek)", nameFA:"کباب چنجه", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
-        { id:"tek_torsh", price:449, nameTR:"Kebap Torsh (Tek)", nameFA:"کباب ترش", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
-        { id:"tek_barg", price:549, nameTR:"Barg (Tek)", nameFA:"کباب برگ", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." }
+        { id:"tek_koobide", price:229, img:"images/koobide.jpg", nameTR:"Koobide (Tek Şiş)", nameFA:"کوبیده", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
+        { id:"tek_joojeh_safran", price:229, img:"images/joojeh-safran.jpg", nameTR:"Safranlı Joojeh (Tek Şiş)", nameFA:"جوجه زعفرانی", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
+        { id:"tek_joojeh_torsh", price:229, img:"images/joojeh-torsh.jpg", nameTR:"Tavuk Torsh (Tek Şiş)", nameFA:"جوجه ترش", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
+        { id:"tek_joojeh_kemikli", price:229, img:"images/joojeh-bone.jpg", nameTR:"Kemikli Tavuk (Tek)", nameFA:"جوجه با استخوان", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
+        { id:"tek_chenjek", price:449, img:"images/chenjeh.jpg", nameTR:"Chenjek (Tek)", nameFA:"کباب چنجه", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
+        { id:"tek_torsh", price:449, img:"images/joojeh-torsh.jpg", nameTR:"Kebap Torsh (Tek)", nameFA:"کباب ترش", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
+        { id:"tek_barg", price:549, img:"images/barg.jpg", nameTR:"Barg (Tek)", nameFA:"کباب برگ", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." }
       ]
     },
 
@@ -386,6 +432,7 @@
         {
           id:"zereshk",
           price:399,
+          img:"images/zereshk-polo-morgh.jpg",
           nameTR:"Zereshk Pilavı & Tavuk",
           nameFA:"زرشک‌پلو با مرغ",
           descTR:"Safranlı pilav, zereshk ve tavuk (İran pirinci ile).",
@@ -394,6 +441,7 @@
         {
           id:"ghormeh",
           price:399,
+          img:"images/khoresht-ghormesabzi.jpg",
           nameTR:"Ghormeh Sabzi",
           nameFA:"خورشت قرمه‌سبزی",
           descTR:"Otlar, kırmızı fasulye ve et (İran pirinci ile).",
@@ -402,6 +450,7 @@
         {
           id:"gheymeh",
           price:399,
+          img:"images/khoresht-gheymeh.jpg",
           nameTR:"Gheymeh",
           nameFA:"خورشت قیمه",
           descTR:"Et, lape و domates sosu (İran pirinci ile).",
@@ -410,6 +459,7 @@
         {
           id:"daily",
           price:null,
+          img:null,
           nameTR:"Günün Yemeği",
           nameFA:"غذای روز",
           descTR:"Her gün taze, değişen ev yemeği.",
@@ -425,6 +475,7 @@
         {
           id:"mirza_ghasemi",
           price:199,
+          img:"images/mirza-ghasemi.jpg",
           nameTR:"Mirza Ghasemi",
           nameFA:"میرزا قاسمی",
           descTR:"Köz patlıcan, domates, sarımsak و yumurta.",
@@ -433,6 +484,7 @@
         {
           id:"zeytoon_parvarde",
           price:99,
+          img:"images/zeytoon-parvarde.jpg",
           nameTR:"Zeytin (İran Usulü)",
           nameFA:"زیتون پرورده",
           descTR:"Ceviz, nar ekşisi ve İran baharatlarıyla.",
@@ -445,13 +497,13 @@
       titleTR:"🥤 İçecekler",
       titleFA:"🥤 نوشیدنی",
       items:[
-        { id:"doogh", price:null, nameTR:"Ayran (Geleneksel)", nameFA:"دوغ سنتی", descTR:"Soğuk yoğurt içeceği.", descFA:"دوغ سنتی" },
-        { id:"coke", price:null, nameTR:"Coca-Cola", nameFA:"کوکاکولا", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
-        { id:"fanta", price:null, nameTR:"Fanta", nameFA:"فانتا", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
-        { id:"sprite", price:null, nameTR:"Sprite", nameFA:"اسپرایت", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
-        { id:"water_spark", price:null, nameTR:"Maden Suyu (Gazlı)", nameFA:"آب معدنی گاز دار", descTR:"Gazlı maden suyu.", descFA:"آب معدنی گاز دار" },
-        { id:"water", price:null, nameTR:"Su", nameFA:"آب آشامیدنی", descTR:"Doğal içme suyu.", descFA:"آب آشامیدنی" },
-        { id:"tea", price:null, nameTR:"İran Çayı", nameFA:"چای ایرانی", descTR:"Demlenmiş siyah çay.", descFA:"چای سیاه سنتی ایرانی، دم‌کشیده." }
+        { id:"doogh", price:null, img:null, nameTR:"Ayran (Geleneksel)", nameFA:"دوغ سنتی", descTR:"Soğuk yoğurt içeceği.", descFA:"دوغ سنتی" },
+        { id:"coke", price:null, img:null, nameTR:"Coca-Cola", nameFA:"کوکاکولا", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
+        { id:"fanta", price:null, img:null, nameTR:"Fanta", nameFA:"فانتا", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
+        { id:"sprite", price:null, img:null, nameTR:"Sprite", nameFA:"اسپرایت", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
+        { id:"water_spark", price:null, img:null, nameTR:"Maden Suyu (Gazlı)", nameFA:"آب معدنی گاز دار", descTR:"Gazlı maden suyu.", descFA:"آب معدنی گاز دار" },
+        { id:"water", price:null, img:null, nameTR:"Su", nameFA:"آب آشامیدنی", descTR:"Doğal içme suyu.", descFA:"آب آشامیدنی" },
+        { id:"tea", price:null, img:null, nameTR:"İran Çayı", nameFA:"چای ایرانی", descTR:"Demlenmiş siyah çay.", descFA:"چای سیاه سنتی ایرانی، دم‌کشیده." }
       ]
     }
   ];
@@ -491,8 +543,8 @@
     updateSummary();
   }
 
-  function inc(id){ qty[id] = (qty[id] || 0) + 1; render(); updateSummary(); }
-  function dec(id){ qty[id] = Math.max(0, (qty[id] || 0) - 1); render(); updateSummary(); }
+  function inc(id){ qty[id] = (qty[id] || 0) + 1; updateSummary(); updateQtyUI(id); }
+  function dec(id){ qty[id] = Math.max(0, (qty[id] || 0) - 1); updateSummary(); updateQtyUI(id); }
 
   function render(){
     const grid = el("menuGrid");
@@ -506,26 +558,41 @@
       sec.items.forEach(it=>{
         const row = document.createElement("div");
         row.className = "item";
+        row.setAttribute("data-id", it.id);
 
         const name = (lang==="TR" ? it.nameTR : it.nameFA);
         const desc = (lang==="TR" ? it.descTR : it.descFA);
         const n = qty[it.id] || 0;
         const priceText = formatPrice(it.price);
 
+        const imgTag = it.img
+          ? `<img class="food-img" src="${it.img}" alt="${name}">`
+          : `<img class="food-img hide" alt="">`;
+
         row.innerHTML = `
-          <div style="flex:1 1 auto;">
-            <div class="topline">
-              <div class="name">${name}</div>
-              ${priceText ? `<div class="price">${priceText}</div>` : ``}
+          <div class="left">
+            ${imgTag}
+            <div class="meta">
+              <div class="topline">
+                <div class="name">${name}</div>
+                ${priceText ? `<div class="price">${priceText}</div>` : ``}
+              </div>
+              <div class="desc">${desc}</div>
             </div>
-            <div class="desc">${desc}</div>
           </div>
+
           <div class="qty">
             <button class="qbtn minus" type="button" aria-label="minus">−</button>
-            <div class="qnum">${n}</div>
+            <div class="qnum" data-q="${it.id}">${n}</div>
             <button class="qbtn plus" type="button" aria-label="plus">+</button>
           </div>
         `;
+
+        // hide broken images automatically
+        const img = row.querySelector(".food-img");
+        if(img && !img.classList.contains("hide")){
+          img.onerror = () => img.classList.add("hide");
+        }
 
         row.querySelector(".minus").onclick = () => dec(it.id);
         row.querySelector(".plus").onclick  = () => inc(it.id);
@@ -535,6 +602,11 @@
 
       grid.appendChild(box);
     });
+  }
+
+  function updateQtyUI(id){
+    const qEl = document.querySelector(`[data-q="${id}"]`);
+    if(qEl) qEl.textContent = (qty[id] || 0);
   }
 
   function countAll(){ return Object.values(qty).reduce((a,b)=>a+(b||0),0); }
