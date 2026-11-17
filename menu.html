@@ -5,281 +5,376 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Mirzanin Mutfağı | Menu</title>
   <style>
-    :root{
-      --purple:#5a189a;
-      --purple2:#3c096c;
-      --yellow:#f6c21c;
-      --text:#111;
-      --muted:#444;
-      --border:rgba(0,0,0,.08);
+    :root {
+      --purple: #5a189a;
+      --purple2: #3c096c;
+      --yellow: #f6c21c;
+      --text: #111;
+      --muted: #444;
+      --border: rgba(0, 0, 0, .08);
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Tahoma,Arial,sans-serif;
-      color:var(--text);
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      color: var(--text);
       background:
-        linear-gradient(rgba(255,255,255,.90), rgba(255,255,255,.90)),
+        linear-gradient(rgba(255, 255, 255, .90), rgba(255, 255, 255, .90)),
         url("pattern.png");
-      background-size:900px;
-      background-repeat:repeat;
+      background-size: 900px;
+      background-repeat: repeat;
     }
 
-    header{
-      background:linear-gradient(90deg,var(--purple),var(--purple2));
-      color:#fff;
-      border-bottom:4px solid var(--yellow);
-      padding:12px 16px;
-      position:sticky;
-      top:0;
-      z-index:999;
-    }
-    .top{
-      max-width:1100px;
-      margin:0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-weight:900;
-      min-width:240px;
-    }
-    .brand img{
-      width:44px;
-      height:auto;
-      border-radius:12px;
-      background:#fff;
-      padding:4px;
+    header {
+      background: linear-gradient(90deg, var(--purple), var(--purple2));
+      color: #fff;
+      border-bottom: 4px solid var(--yellow);
+      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
     }
 
-    nav{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      align-items:center;
+    .top {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
     }
-    nav a, nav button{
-      text-decoration:none;
-      font-weight:900;
-      padding:10px 14px;
-      border-radius:14px;
-      display:inline-block;
-      box-shadow:0 10px 18px rgba(0,0,0,.12);
-      border:0;
-      cursor:pointer;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      min-width: 240px;
     }
-    nav a.home{background:var(--yellow);color:#000;}
-    nav a.about{background:#fff;color:#000;}
-    nav button.lang{
-      background:rgba(255,255,255,.12);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.22);
-      box-shadow:none;
-      padding:9px 12px;
+
+    .brand img {
+      width: 44px;
+      height: auto;
+      border-radius: 12px;
+      background: #fff;
+      padding: 4px;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    nav a,
+    nav button {
+      text-decoration: none;
+      font-weight: 900;
+      padding: 10px 14px;
+      border-radius: 14px;
+      display: inline-block;
+      box-shadow: 0 10px 18px rgba(0, 0, 0, .12);
+      border: 0;
+      cursor: pointer;
+    }
+
+    nav a.home {
+      background: var(--yellow);
+      color: #000;
+    }
+
+    nav a.about {
+      background: #fff;
+      color: #000;
+    }
+
+    nav button.lang {
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .22);
+      box-shadow: none;
+      padding: 9px 12px;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
     }
-    nav button.lang.active{
-      background:var(--yellow);
-      color:#000;
-      border-color:var(--yellow);
+
+    nav button.lang.active {
+      background: var(--yellow);
+      color: #000;
+      border-color: var(--yellow);
     }
 
-    .wrap{max-width:1100px;margin:0 auto;padding:18px;}
-
-    .note{
-      margin:14px 0 0;
-      background:rgba(255,255,255,.92);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:14px 14px;
-      line-height:1.7;
-      color:var(--muted);
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:14px;
-      margin-top:16px;
-    }
-    @media (max-width:860px){
-      .grid{grid-template-columns:1fr;}
-    }
-
-    .section{
-      margin-top:18px;
-      padding:16px;
-      background:rgba(255,255,255,.92);
-      border:1px solid var(--border);
-      border-radius:20px;
-      box-shadow:0 10px 26px rgba(0,0,0,.08);
-    }
-    .section h2{
-      margin:0 0 10px 0;
-      font-size:18px;
-      display:flex;
-      align-items:center;
-      gap:8px;
+    .note {
+      margin: 14px 0 0;
+      background: rgba(255, 255, 255, .92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      line-height: 1.7;
+      color: var(--muted);
     }
 
-    .item{
-      border-top:1px solid rgba(0,0,0,.08);
-      padding:12px 0;
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      justify-content:space-between;
-    }
-    .item:first-of-type{border-top:none}
-
-    /* ✅ layout for image + text */
-    .left{
-      flex:1 1 auto;
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      min-width:0;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 16px;
     }
 
-    .food-img{
-      width:92px;
-      height:92px;
-      border-radius:16px;
-      object-fit:cover;
-      border:1px solid rgba(0,0,0,.10);
-      background:#fff;
-      box-shadow:0 10px 18px rgba(0,0,0,.08);
-      flex:0 0 auto;
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
     }
 
-    /* if image missing, hide it (prevents broken icon) */
-    .food-img.hide{display:none;}
-
-    @media (max-width:520px){
-      .food-img{width:82px;height:82px;border-radius:14px;}
+    .section {
+      margin-top: 18px;
+      padding: 16px;
+      background: rgba(255, 255, 255, .92);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, .08);
     }
 
-    .meta{
-      flex:1 1 auto;
-      min-width:0;
+    .section h2 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .topline{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
+    .item {
+      border-top: 1px solid rgba(0, 0, 0, .08);
+      padding: 12px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
     }
 
-    .name{font-weight:900}
-    .desc{margin:6px 0 0;color:#444;font-size:13px;line-height:1.6}
-
-    .price{
-      font-weight:900;
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(246,194,28,.25);
-      border:1px solid rgba(246,194,28,.7);
-      color:#000;
-      white-space:nowrap;
+    .item:first-of-type {
+      border-top: none;
     }
 
-    .qty{
-      min-width:150px;
-      display:flex;
-      justify-content:flex-end;
-      align-items:center;
-      gap:8px;
-      flex:0 0 auto;
+    .left {
+      flex: 1 1 auto;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      min-width: 0;
     }
-    .qbtn{
-      width:40px;
-      height:40px;
-      border-radius:14px;
-      border:0;
-      font-weight:900;
-      cursor:pointer;
-      box-shadow:0 10px 18px rgba(0,0,0,.10);
+
+    .food-img {
+      width: 92px;
+      height: 92px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 1px solid rgba(0, 0, 0, .10);
+      background: #fff;
+      box-shadow: 0 10px 18px rgba(0, 0, 0, .08);
+      flex: 0 0 auto;
+    }
+
+    .food-img.hide {
+      display: none;
+    }
+
+    @media (max-width: 520px) {
+      .food-img {
+        width: 82px;
+        height: 82px;
+        border-radius: 14px;
+      }
+    }
+
+    .meta {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .name {
+      font-weight: 900;
+    }
+
+    .desc {
+      margin: 6px 0 0;
+      color: #444;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .price {
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(246, 194, 28, .25);
+      border: 1px solid rgba(246, 194, 28, .7);
+      color: #000;
+      white-space: nowrap;
+    }
+
+    .qty {
+      min-width: 150px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
+    .qbtn {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      border: 0;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 10px 18px rgba(0, 0, 0, .10);
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
     }
-    .qbtn.minus{background:#fff;color:#000;border:2px solid rgba(0,0,0,.12); box-shadow:none;}
-    .qbtn.plus{background:var(--yellow);color:#000;}
-    .qnum{
-      min-width:44px;
-      text-align:center;
-      font-weight:900;
-      font-size:15px;
-      padding:8px 6px;
-      border-radius:12px;
-      background:#fff;
-      border:1px solid rgba(0,0,0,.12);
+
+    .qbtn.minus {
+      background: #fff;
+      color: #000;
+      border: 2px solid rgba(0, 0, 0, .12);
+      box-shadow: none;
     }
 
-    .controls{
-      margin-top:16px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
+    .qbtn.plus {
+      background: var(--yellow);
+      color: #000;
     }
-    .btn{
-      border:0;
-      cursor:pointer;
-      font-weight:900;
-      padding:12px 16px;
-      border-radius:16px;
-      box-shadow:0 10px 22px rgba(0,0,0,.12);
-      transition:transform .08s ease;
+
+    .qnum {
+      min-width: 44px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 15px;
+      padding: 8px 6px;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, .12);
+    }
+
+    .controls {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      font-weight: 900;
+      padding: 12px 16px;
+      border-radius: 16px;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, .12);
+      transition: transform .08s ease;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
     }
-    .btn:active{transform:scale(.99)}
-    .btn.send{background:var(--yellow);color:#000;}
-    .btn.clear{background:#fff;color:#000;border:2px solid rgba(0,0,0,.12); box-shadow:none;}
 
-    textarea, input[type="text"]{
-      width:100%;
-      padding:12px 12px;
-      border-radius:16px;
-      border:1px solid rgba(0,0,0,.15);
-      background:#fff;
-      font-family:inherit;
-      font-size:14px;
-      line-height:1.6;
+    .btn:active {
+      transform: scale(.99);
     }
-    .two{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:12px;
-    }
-    @media (max-width:860px){ .two{grid-template-columns:1fr;} }
 
-    footer{
-      padding:22px 18px 28px;
-      text-align:center;
-      color:#222;
-      font-size:14px;
+    .btn.send {
+      background: var(--yellow);
+      color: #000;
     }
-    footer a{color:var(--purple);font-weight:900;text-decoration:none}
-    .small{margin-top:6px;opacity:.75;font-size:12px}
 
-    .rtl{direction:rtl; text-align:right;}
-    .rtl .left{flex-direction:row-reverse;}
-    .rtl .topline{justify-content:space-between;}
+    .btn.clear {
+      background: #fff;
+      color: #000;
+      border: 2px solid rgba(0, 0, 0, .12);
+      box-shadow: none;
+    }
+
+    textarea,
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, .15);
+      background: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 860px) {
+      .two {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    footer {
+      padding: 22px 18px 28px;
+      text-align: center;
+      color: #222;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--purple);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .small {
+      margin-top: 6px;
+      opacity: .75;
+      font-size: 12px;
+    }
+
+    .rtl {
+      direction: rtl;
+      text-align: right;
+    }
+
+    .rtl .left {
+      flex-direction: row-reverse;
+    }
+
+    .rtl .topline {
+      justify-content: space-between;
+    }
   </style>
 </head>
+
 <body>
 
 <header>
@@ -312,6 +407,7 @@
 
     <div class="controls">
       <div id="summary" style="font-weight:900;"></div>
+
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <button class="btn clear" id="btnClear" type="button"></button>
         <button class="btn send" id="btnSend" type="button"></button>
@@ -324,7 +420,12 @@
 
 <footer>
   Instagram:
-  <a href="https://www.instagram.com/mirzaninmutfagi?igsh=czNydXQ2bm1qa3c2&utm_source=qr" target="_blank" rel="noopener">@mirzaninmutfagi</a>
+  <a
+    href="https://www.instagram.com/mirzaninmutfagi?igsh=czNydXQ2bm1qa3c2&utm_source=qr"
+    target="_blank"
+    rel="noopener"
+  >@mirzaninmutfagi</a>
+
   <div class="small">© Mirzanin Mutfağı</div>
 </footer>
 
@@ -333,207 +434,355 @@
 
   const sections = [
     {
-      titleTR:"🍽️ Pilavlı Kebaplar",
-      titleFA:"🍽️ چلو کباب‌ها",
-      items:[
+      titleTR: "🍽️ Pilavlı Kebaplar",
+      titleFA: "🍽️ چلو کباب‌ها",
+      items: [
         {
-          id:"chelo_koobide_2",
-          price:569,
-          img:"images/chelo-koobide-2.jpg",
-          nameTR:"Pilavlı Koobide (2 Şiş)",
-          nameFA:"چلو کوبیده مخصوص میرزا (۲ سیخ)",
-          descTR:"Dana kıyma kebabı, soğan ve İran baharatlarıyla; pilav ile servis edilir.",
-          descFA:"کباب گوشت چرخ‌کرده گاوی که با پیاز و ادویه‌های مخصوص ایرانی مزه‌دار شده و روی آتش کباب می‌شود."
+          id: "chelo_koobide_2",
+          price: 569,
+          img: "images/chelo-koobide-2.jpg",
+          nameTR: "Pilavlı Koobide (2 Şiş)",
+          nameFA: "چلو کوبیده مخصوص میرزا (۲ سیخ)",
+          descTR: "Dana kıyma kebabı, soğan ve İran baharatlarıyla; pilav ile servis edilir.",
+          descFA: "کباب گوشت چرخ‌کرده گاوی که با پیاز و ادویه‌های مخصوص ایرانی مزه‌دار شده و روی آتش کباب می‌شود."
         },
         {
-          id:"chelo_koobide_1",
-          price:399,
-          img:"images/chelo-koobide-1.jpg",
-          nameTR:"Pilavlı Koobide (Tek Şiş)",
-          nameFA:"چلو کوبیده تک سیخ",
-          descTR:"Dana kıyma kebabı; pilav ile servis edilir.",
-          descFA:"کباب گوشت چرخ‌کرده گاوی که با پیاز و ادویه‌های مخصوص ایرانی مزه‌دار شده و روی آتش کباب می‌شود."
+          id: "chelo_koobide_1",
+          price: 399,
+          img: "images/chelo-koobide-1.jpg",
+          nameTR: "Pilavlı Koobide (Tek Şiş)",
+          nameFA: "چلو کوبیده تک سیخ",
+          descTR: "Dana kıyma kebabı; pilav ile servis edilir.",
+          descFA: "کباب گوشت چرخ‌کرده گاوی که با پیاز و ادویه‌های مخصوص ایرانی مزه‌دار شده و روی آتش کباب می‌شود."
         },
         {
-          id:"chelo_joojeh_safran",
-          price:399,
-          img:"images/chelo-joojeh-safran.jpg",
-          nameTR:"Pilavlı Safranlı Joojeh",
-          nameFA:"چلو جوجه زعفرانی",
-          descTR:"Safran, yoğurt ve baharatlarla marine tavuk şiş; pilav ile servis edilir.",
-          descFA:"تکه‌های نرم مرغ که با زعفران، ماست و ادویه‌ها مزه‌دار شده و به صورت سیخی کباب می‌شود."
+          id: "chelo_joojeh_safran",
+          price: 399,
+          img: "images/chelo-joojeh-safran.jpg",
+          nameTR: "Pilavlı Safranlı Joojeh",
+          nameFA: "چلو جوجه زعفرانی",
+          descTR: "Safran, yoğurt ve baharatlarla marine tavuk şiş; pilav ile servis edilir.",
+          descFA: "تکه‌های نرم مرغ که با زعفران، ماست و ادویه‌ها مزه‌دار شده و به صورت سیخی کباب می‌شود."
         },
         {
-          id:"chelo_joojeh_torsh",
-          price:399,
-          img:"images/chelo-joojeh-torsh.jpg",
-          nameTR:"Pilavlı Tavuk Torsh",
-          nameFA:"چلو جوجه ترش",
-          descTR:"Nar ekşisi ve özel baharatlarla marine tavuk şiş; pilav ile servis edilir.",
-          descFA:"تکه‌های نرم مرغ که با رب انار و ادویه‌های خاص مزه‌دار شده و به صورت سیخی کباب می‌شود."
+          id: "chelo_joojeh_torsh",
+          price: 399,
+          img: "images/chelo-joojeh-torsh.jpg",
+          nameTR: "Pilavlı Tavuk Torsh",
+          nameFA: "چلو جوجه ترش",
+          descTR: "Nar ekşisi ve özel baharatlarla marine tavuk şiş; pilav ile servis edilir.",
+          descFA: "تکه‌های نرم مرغ که با رب انار و ادویه‌های خاص مزه‌دار شده و به صورت سیخی کباب می‌شود."
         },
         {
-          id:"chelo_joojeh_kemikli",
-          price:399,
-          img:"images/chelo-joojeh-bone.jpg",
-          nameTR:"Pilavlı Kemikli Tavuk",
-          nameFA:"چلو جوجه با استخوان",
-          descTR:"Geleneksel kemikli tavuk; sulu ve aromalı. Pilav ile servis edilir.",
-          descFA:"مرغ با استخوان که به‌صورت سنتی کباب شده و آبدار و خوش‌عطر است."
+          id: "chelo_chenjek",
+          price: 599,
+          img: "images/chelo-chenjeh.jpg",
+          nameTR: "Pilavlı Chenjek (Dana)",
+          nameFA: "چلو کباب چنجه",
+          descTR: "Marine dana kuşbaşı; yumuşak ve lezzetli. Pilav ile servis edilir.",
+          descFA: "تکه‌های گوشت گوساله مزه‌دارشده، نرم و لذیذ، کباب‌شده روی سیخ."
         },
         {
-          id:"chelo_chenjek",
-          price:599,
-          img:"images/chelo-chenjeh.jpg",
-          nameTR:"Pilavlı Chenjek (Dana)",
-          nameFA:"چلو کباب چنجه",
-          descTR:"Marine dana kuşbaşı; yumuşak ve lezzetli. Pilav ile servis edilir.",
-          descFA:"تکه‌های گوشت گوساله مزه‌دارشده، نرم و لذیذ، کباب‌شده روی سیخ."
+          id: "chelo_torsh",
+          price: 599,
+          img: "images/chelo-torsh.jpg",
+          nameTR: "Pilavlı Kebap Torsh",
+          nameFA: "چلو کباب ترش",
+          descTR: "Ceviz, nar ekşisi ve özel baharatlarla marine dana. Pilav ile servis edilir.",
+          descFA: "تکه‌های گوشت گوساله مزه‌دارشده با گردو و رب انار . ادویه های مخصوص، نرم و لذیذ، کباب‌شده روی سیخ."
         },
         {
-          id:"chelo_torsh",
-          price:599,
-          img:"images/chelo-torsh.jpg",
-          nameTR:"Pilavlı Kebap Torsh",
-          nameFA:"چلو کباب ترش",
-          descTR:"Ceviz, nar ekşisi ve özel baharatlarla marine dana. Pilav ile servis edilir.",
-          descFA:"تکه‌های گوشت گوساله مزه‌دارشده با گردو و رب انار . ادویه های مخصوص، نرم و لذیذ، کباب‌شده روی سیخ."
-        },
-        {
-          id:"chelo_barg",
-          price:699,
-          img:"images/chelo-barg.jpg",
-          nameTR:"Pilavlı Barg (Özel)",
-          nameFA:"چلو برگ مخصوص",
-          descTR:"Seçilmiş dana eti; çok yumuşak ve kaliteli. Pilav ile servis edilir.",
-          descFA:"تهیه‌شده از فیله‌ی مرغوب گوشت گوساله ، بسیار نرم و باکیفیت."
+          id: "chelo_barg",
+          price: 699,
+          img: "images/chelo-barg.jpg",
+          nameTR: "Pilavlı Barg (Özel)",
+          nameFA: "چلو برگ مخصوص",
+          descTR: "Seçilmiş dana eti; çok yumuşak ve kaliteli. Pilav ile servis edilir.",
+          descFA: "تهیه‌شده از فیله‌ی مرغوب گوشت گوساله ، بسیار نرم و باکیفیت."
         }
       ]
     },
 
     {
-      titleTR:"🍢 Tek Şiş Kebaplar",
-      titleFA:"🍢 کباب‌های تک سیخ",
-      items:[
-        { id:"tek_koobide", price:300, img:"images/koobide.jpg", nameTR:"Koobide (Tek Şiş)", nameFA:"کوبیده", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
-        { id:"tek_joojeh_safran", price:300, img:"images/joojeh-safran.jpg", nameTR:"Safranlı Joojeh (Tek Şiş)", nameFA:"جوجه زعفرانی", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
-        { id:"tek_joojeh_torsh", price:300, img:"images/joojeh-torsh.jpg", nameTR:"Tavuk Torsh (Tek Şiş)", nameFA:"جوجه ترش", descTR:"Tek şiş.", descFA:"کباب تک سیخ." },
-        { id:"tek_joojeh_kemikli", price:300, img:"images/joojeh-bone.jpg", nameTR:"Kemikli Tavuk (Tek)", nameFA:"جوجه با استخوان", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
-        { id:"tek_chenjek", price:499, img:"images/chenjeh.jpg", nameTR:"Chenjek (Tek)", nameFA:"کباب چنجه", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
-        { id:"tek_torsh", price:499, img:"images/joojeh-torsh.jpg", nameTR:"Kebap Torsh (Tek)", nameFA:"کباب ترش", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." },
-        { id:"tek_barg", price:599, img:"images/barg.jpg", nameTR:"Barg (Tek)", nameFA:"کباب برگ", descTR:"Tek porsiyon.", descFA:"کباب تک سیخ." }
-      ]
-    },
-
-    {
-      titleTR:"🍗 Geleneksel Yemekler",
-      titleFA:"🍗 غذاهای سنتی",
-      items:[
+      titleTR: "🍢 Tek Şiş Kebaplar",
+      titleFA: "🍢 کباب‌های تک سیخ",
+      items: [
         {
-          id:"zereshk",
-          price:419,
-          img:"images/zereshk-polo-morgh.jpg",
-          nameTR:"Zereshk Pilavı & Tavuk",
-          nameFA:"زرشک‌پلو با مرغ",
-          descTR:"Safranlı pilav, zereshk ve tavuk (İran pirinci ile).",
-          descFA:"برنج زعفرانی ایرانی همراه با زرشک ترش و خوش‌عطر، سرو شده با مرغ. همراه با برنج ایرانی"
+          id: "tek_koobide",
+          price: 300,
+          img: "images/koobide.jpg",
+          nameTR: "Koobide (Tek Şiş)",
+          nameFA: "کوبیده",
+          descTR: "Tek şiş.",
+          descFA: "کباب تک سیخ."
         },
         {
-          id:"ghormeh",
-          price:439,
-          img:"images/khoresht-ghormesabzi.jpg",
-          nameTR:"Ghormeh Sabzi",
-          nameFA:"خورشت قرمه‌سبزی",
-          descTR:"Otlar, kırmızı fasulye ve et (İran pirinci ile).",
-          descFA:"مشهورترین غذای ایرانی، تهیه‌شده از سبزی‌های معطر، لوبیا قرمز و گوشت. همراه با برنج ایرانی"
+          id: "tek_joojeh_safran",
+          price: 300,
+          img: "images/joojeh-safran.jpg",
+          nameTR: "Safranlı Joojeh (Tek Şiş)",
+          nameFA: "جوجه زعفرانی",
+          descTR: "Tek şiş.",
+          descFA: "کباب تک سیخ."
         },
         {
-          id:"gheymeh",
-          price:439,
-          img:"images/khoresht-gheymeh.jpg",
-          nameTR:"Gheymeh",
-          nameFA:"خورشت قیمه",
-          descTR:"Et, lape و domates sosu (İran pirinci ile).",
-          descFA:"خورشتی سنتی با گوشت، لپه و سس گوجه‌فرنگی. همراه با برنج ایرانی"
+          id: "tek_joojeh_torsh",
+          price: 300,
+          img: "images/joojeh-torsh.jpg",
+          nameTR: "Tavuk Torsh (Tek Şiş)",
+          nameFA: "جوجه ترش",
+          descTR: "Tek şiş.",
+          descFA: "کباب تک سیخ."
         },
         {
-          id:"daily",
-          price:null,
-          img:null,
-          nameTR:"Günün Yemeği",
-          nameFA:"غذای روز",
-          descTR:"Her gün taze, değişen ev yemeği.",
-          descFA:"غذای خانگی تازه که هر روز متفاوت و همان روز تهیه می‌شود."
+          id: "tek_chenjek",
+          price: 499,
+          img: "images/chenjeh.jpg",
+          nameTR: "Chenjek (Tek)",
+          nameFA: "کباب چنجه",
+          descTR: "Tek porsiyon.",
+          descFA: "کباب تک سیخ."
+        },
+        {
+          id: "tek_torsh",
+          price: 499,
+          img: "images/joojeh-torsh.jpg",
+          nameTR: "Kebap Torsh (Tek)",
+          nameFA: "کباب ترش",
+          descTR: "Tek porsiyon.",
+          descFA: "کباب تک سیخ."
+        },
+        {
+          id: "tek_barg",
+          price: 599,
+          img: "images/barg.jpg",
+          nameTR: "Barg (Tek)",
+          nameFA: "کباب برگ",
+          descTR: "Tek porsiyon.",
+          descFA: "کباب تک سیخ."
         }
       ]
     },
 
     {
-      titleTR:"🥗 Meze & Mezeler",
-      titleFA:"🥗 پیش‌غذا و مزه",
-      items:[
+      titleTR: "🍽️ Özel Tepsiler",
+      titleFA: "🍽️ سینی‌های مخصوص",
+      items: [
         {
-          id:"mirza_ghasemi",
-          price:239,
-          img:"images/mirza-ghasemi.jpg",
-          nameTR:"Mirza Ghasemi",
-          nameFA:"میرزا قاسمی",
-          descTR:"Köz patlıcan, domates, sarımsak و yumurta.",
-          descFA:"بادمجون کبابی همراه با گوجه, سیر و تخم مرغ"
-        },
-        {
-          id:"zeytoon_parvarde",
-          price:150,
-          img:"images/zeytoon-parvarde.jpg",
-          nameTR:"Zeytin (İran Usulü)",
-          nameFA:"زیتون پرورده",
-          descTR:"Ceviz, nar ekşisi ve İran baharatlarıyla.",
-          descFA:"زیتون مزه‌دارشده با گردو، رب انار و ادویه‌های ایرانی."
+          id: "mirza_kebap_tepsisi",
+          price: 2900,
+          img: null,
+          nameTR: "Mirza Kebap Tepsisi",
+          nameFA: "سینی کباب میرزا",
+          descTR: "Mirza'ya özel kebap tepsisi.",
+          descFA: "سینی کباب مخصوص میرزا."
         }
       ]
     },
 
     {
-      titleTR:"🥤 İçecekler",
-      titleFA:"🥤 نوشیدنی",
-      items:[
-        { id:"doogh", price:null, img:null, nameTR:"Ayran (Geleneksel)", nameFA:"دوغ سنتی", descTR:"Soğuk yoğurt içeceği.", descFA:"دوغ سنتی" },
-        { id:"coke", price:null, img:null, nameTR:"Coca-Cola", nameFA:"کوکاکولا", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
-        { id:"fanta", price:null, img:null, nameTR:"Fanta", nameFA:"فانتا", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
-        { id:"sprite", price:null, img:null, nameTR:"Sprite", nameFA:"اسپرایت", descTR:"Gazlı içecek.", descFA:"نوشیدنی‌های گازدار." },
-        { id:"water_spark", price:null, img:null, nameTR:"Maden Suyu (Gazlı)", nameFA:"آب معدنی گاز دار", descTR:"Gazlı maden suyu.", descFA:"آب معدنی گاز دار" },
-        { id:"water", price:null, img:null, nameTR:"Su", nameFA:"آب آشامیدنی", descTR:"Doğal içme suyu.", descFA:"آب آشامیدنی" },
-        { id:"tea", price:null, img:null, nameTR:"İran Çayı", nameFA:"چای ایرانی", descTR:"Demlenmiş siyah çay.", descFA:"چای سیاه سنتی ایرانی، دم‌کشیده." }
+      titleTR: "🍗 Geleneksel Yemekler",
+      titleFA: "🍗 غذاهای سنتی",
+      items: [
+        {
+          id: "zereshk",
+          price: 419,
+          img: "images/zereshk-polo-morgh.jpg",
+          nameTR: "Zereshk Pilavı & Tavuk",
+          nameFA: "زرشک‌پلو با مرغ",
+          descTR: "Safranlı pilav, zereshk ve tavuk (İran pirinci ile).",
+          descFA: "برنج زعفرانی ایرانی همراه با زرشک ترش و خوش‌عطر، سرو شده با مرغ. همراه با برنج ایرانی"
+        },
+        {
+          id: "ghormeh",
+          price: 439,
+          img: "images/khoresht-ghormesabzi.jpg",
+          nameTR: "Ghormeh Sabzi",
+          nameFA: "خورشت قرمه‌سبزی",
+          descTR: "Otlar, kırmızı fasulye ve et (İran pirinci ile).",
+          descFA: "مشهورترین غذای ایرانی، تهیه‌شده از سبزی‌های معطر، لوبیا قرمز و گوشت. همراه با برنج ایرانی"
+        },
+        {
+          id: "gheymeh",
+          price: 439,
+          img: "images/khoresht-gheymeh.jpg",
+          nameTR: "Gheymeh",
+          nameFA: "خورشت قیمه",
+          descTR: "Et, lape و domates sosu (İran pirinci ile).",
+          descFA: "خورشتی سنتی با گوشت، لپه و سس گوجه‌فرنگی. همراه با برنج ایرانی"
+        },
+        {
+          id: "daily",
+          price: null,
+          img: null,
+          nameTR: "Günün Yemeği",
+          nameFA: "غذای روز",
+          descTR: "Her gün taze, değişen ev yemeği.",
+          descFA: "غذای خانگی تازه که هر روز متفاوت و همان روز تهیه می‌شود."
+        }
+      ]
+    },
+
+    {
+      titleTR: "🥗 Meze & Mezeler",
+      titleFA: "🥗 پیش‌غذا و مزه",
+      items: [
+        {
+          id: "mirza_ghasemi",
+          price: 239,
+          img: "images/mirza-ghasemi.jpg",
+          nameTR: "Mirza Ghasemi",
+          nameFA: "میرزا قاسمی",
+          descTR: "Köz patlıcan, domates, sarımsak و yumurta.",
+          descFA: "بادمجون کبابی همراه با گوجه, سیر و تخم مرغ"
+        },
+        {
+          id: "zeytoon_parvarde",
+          price: 150,
+          img: "images/zeytoon-parvarde.jpg",
+          nameTR: "Zeytin (İran Usulü)",
+          nameFA: "زیتون پرورده",
+          descTR: "Ceviz, nar ekşisi ve İran baharatlarıyla.",
+          descFA: "زیتون مزه‌دارشده با گردو، رب انار و ادویه‌های ایرانی."
+        }
+      ]
+    },
+
+    {
+      titleTR: "🍮 Tatlılar",
+      titleFA: "🍮 دسرها",
+      items: [
+        {
+          id: "khagine",
+          price: 200,
+          img: null,
+          nameTR: "Khagine",
+          nameFA: "خاگینه",
+          descTR: "Geleneksel İran tatlısı.",
+          descFA: "دسر سنتی ایرانی."
+        }
+      ]
+    },
+
+    {
+      titleTR: "🥤 İçecekler",
+      titleFA: "🥤 نوشیدنی",
+      items: [
+        {
+          id: "doogh",
+          price: 140,
+          img: null,
+          nameTR: "Ayran (Geleneksel)",
+          nameFA: "دوغ سنتی",
+          descTR: "Soğuk yoğurt içeceği.",
+          descFA: "دوغ سنتی"
+        },
+        {
+          id: "coke",
+          price: 90,
+          img: null,
+          nameTR: "Coca-Cola",
+          nameFA: "کوکاکولا",
+          descTR: "Gazlı içecek.",
+          descFA: "نوشیدنی‌های گازدار."
+        },
+        {
+          id: "fanta",
+          price: 90,
+          img: null,
+          nameTR: "Fanta",
+          nameFA: "فانتا",
+          descTR: "Gazlı içecek.",
+          descFA: "نوشیدنی‌های گازدار."
+        },
+        {
+          id: "sprite",
+          price: 90,
+          img: null,
+          nameTR: "Sprite",
+          nameFA: "اسپرایت",
+          descTR: "Gazlı içecek.",
+          descFA: "نوشیدنی‌های گازدار."
+        },
+        {
+          id: "water_spark",
+          price: null,
+          img: null,
+          nameTR: "Maden Suyu (Gazlı)",
+          nameFA: "آب معدنی گاز دار",
+          descTR: "Gazlı maden suyu.",
+          descFA: "آب معدنی گاز دار"
+        },
+        {
+          id: "water",
+          price: 40,
+          img: null,
+          nameTR: "Su",
+          nameFA: "آب آشامیدنی",
+          descTR: "Doğal içme suyu.",
+          descFA: "آب آشامیدنی"
+        },
+        {
+          id: "tea",
+          price: 0,
+          img: null,
+          nameTR: "İran Çayı",
+          nameFA: "چای ایرانی",
+          descTR: "Demlenmiş siyah çay.",
+          descFA: "چای سیاه سنتی ایرانی، دم‌کشیده."
+        }
       ]
     }
   ];
 
   let lang = "TR";
   const qty = {};
-  const el = (id)=>document.getElementById(id);
-  function t(tr, fa){ return lang === "TR" ? tr : fa; }
 
-  function formatPrice(p){
-    if(p === null || p === undefined || p === "") return "";
+  const el = (id) => document.getElementById(id);
+
+  function t(tr, fa) {
+    return lang === "TR" ? tr : fa;
+  }
+
+  function formatPrice(p) {
+    if (p === null || p === undefined || p === "") return "";
+    if (p === 0) return t("Ücretsiz", "رایگان");
     return `₺${p}`;
   }
 
-  function setLang(newLang){
+  function setLang(newLang) {
     lang = newLang;
-    document.documentElement.lang = (lang==="TR" ? "tr" : "fa");
-    document.documentElement.dir  = (lang==="TR" ? "ltr" : "rtl");
 
-    el("btnTR").classList.toggle("active", lang==="TR");
-    el("btnFA").classList.toggle("active", lang==="FA");
+    document.documentElement.lang = (lang === "TR" ? "tr" : "fa");
+    document.documentElement.dir = (lang === "TR" ? "ltr" : "rtl");
 
-    el("noteBox").innerHTML = lang==="TR"
+    el("btnTR").classList.toggle("active", lang === "TR");
+    el("btnFA").classList.toggle("active", lang === "FA");
+
+    el("noteBox").innerHTML = lang === "TR"
       ? `<b>Online Sipariş:</b> Ürünleri seçin, adet belirleyin ve “WhatsApp’tan Gönder” butonuna basın.`
       : `<b>سفارش آنلاین:</b> آیتم‌ها را انتخاب کن، تعداد را مشخص کن و با دکمه واتساپ ارسال کن.`;
 
-    el("orderTitle").textContent = t("📝 Sipariş Notu (İsteğe bağlı)", "📝 توضیحات سفارش (اختیاری)");
-    el("note").placeholder = t("Örn: Acısız, az tuz, teslimat saati, vb.", "مثلاً: بدون پیاز، تند، زمان تحویل و ...");
-    el("name").placeholder = t("Ad Soyad (isteğe bağlı)", "نام و نام خانوادگی (اختیاری)");
-    el("address").placeholder = t("Adres / Konum (isteğe bağlı)", "آدرس / لوکیشن (اختیاری)");
+    el("orderTitle").textContent = t(
+      "📝 Sipariş Notu (İsteğe bağlı)",
+      "📝 توضیحات سفارش (اختیاری)"
+    );
+
+    el("note").placeholder = t(
+      "Örn: Acısız, az tuz, teslimat saati, vb.",
+      "مثلاً: بدون پیاز، تند، زمان تحویل و ..."
+    );
+
+    el("name").placeholder = t(
+      "Ad Soyad (isteğe bağlı)",
+      "نام و نام خانوادگی (اختیاری)"
+    );
+
+    el("address").placeholder = t(
+      "Adres / Konum (isteğe bağlı)",
+      "آدرس / لوکیشن (اختیاری)"
+    );
+
     el("btnClear").textContent = t("Temizle", "پاک کردن");
     el("btnSend").textContent = t("WhatsApp’tan Gönder", "ارسال در واتساپ");
     el("navHome").textContent = t("Home", "خانه");
@@ -543,25 +792,37 @@
     updateSummary();
   }
 
-  function inc(id){ qty[id] = (qty[id] || 0) + 1; updateSummary(); updateQtyUI(id); }
-  function dec(id){ qty[id] = Math.max(0, (qty[id] || 0) - 1); updateSummary(); updateQtyUI(id); }
+  function inc(id) {
+    qty[id] = (qty[id] || 0) + 1;
+    updateSummary();
+    updateQtyUI(id);
+  }
 
-  function render(){
+  function dec(id) {
+    qty[id] = Math.max(0, (qty[id] || 0) - 1);
+    updateSummary();
+    updateQtyUI(id);
+  }
+
+  function render() {
     const grid = el("menuGrid");
     grid.innerHTML = "";
 
-    sections.forEach(sec=>{
+    sections.forEach(sec => {
       const box = document.createElement("div");
-      box.className = "section" + (lang==="FA" ? " rtl" : "");
-      box.innerHTML = `<h2>${lang==="TR" ? sec.titleTR : sec.titleFA}</h2>`;
+      box.className = "section" + (lang === "FA" ? " rtl" : "");
 
-      sec.items.forEach(it=>{
+      box.innerHTML = `
+        <h2>${lang === "TR" ? sec.titleTR : sec.titleFA}</h2>
+      `;
+
+      sec.items.forEach(it => {
         const row = document.createElement("div");
         row.className = "item";
         row.setAttribute("data-id", it.id);
 
-        const name = (lang==="TR" ? it.nameTR : it.nameFA);
-        const desc = (lang==="TR" ? it.descTR : it.descFA);
+        const name = (lang === "TR" ? it.nameTR : it.nameFA);
+        const desc = (lang === "TR" ? it.descTR : it.descFA);
         const n = qty[it.id] || 0;
         const priceText = formatPrice(it.price);
 
@@ -572,11 +833,13 @@
         row.innerHTML = `
           <div class="left">
             ${imgTag}
+
             <div class="meta">
               <div class="topline">
                 <div class="name">${name}</div>
                 ${priceText ? `<div class="price">${priceText}</div>` : ``}
               </div>
+
               <div class="desc">${desc}</div>
             </div>
           </div>
@@ -588,14 +851,14 @@
           </div>
         `;
 
-        // hide broken images automatically
         const img = row.querySelector(".food-img");
-        if(img && !img.classList.contains("hide")){
+
+        if (img && !img.classList.contains("hide")) {
           img.onerror = () => img.classList.add("hide");
         }
 
         row.querySelector(".minus").onclick = () => dec(it.id);
-        row.querySelector(".plus").onclick  = () => inc(it.id);
+        row.querySelector(".plus").onclick = () => inc(it.id);
 
         box.appendChild(row);
       });
@@ -604,63 +867,97 @@
     });
   }
 
-  function updateQtyUI(id){
+  function updateQtyUI(id) {
     const qEl = document.querySelector(`[data-q="${id}"]`);
-    if(qEl) qEl.textContent = (qty[id] || 0);
+
+    if (qEl) {
+      qEl.textContent = (qty[id] || 0);
+    }
   }
 
-  function countAll(){ return Object.values(qty).reduce((a,b)=>a+(b||0),0); }
-  function updateSummary(){
-    el("summary").textContent = t(`Seçilen ürün: ${countAll()}`, `تعداد انتخاب‌شده: ${countAll()}`);
+  function countAll() {
+    return Object.values(qty).reduce((a, b) => a + (b || 0), 0);
   }
 
-  function clearAll(){
-    Object.keys(qty).forEach(k=> qty[k]=0);
+  function updateSummary() {
+    el("summary").textContent = t(
+      `Seçilen ürün: ${countAll()}`,
+      `تعداد انتخاب‌شده: ${countAll()}`
+    );
+  }
+
+  function clearAll() {
+    Object.keys(qty).forEach(k => qty[k] = 0);
+
     el("note").value = "";
     el("name").value = "";
     el("address").value = "";
+
     render();
     updateSummary();
   }
 
-  function sendWhatsApp(){
+  function sendWhatsApp() {
     const note = el("note").value.trim();
     const name = el("name").value.trim();
     const address = el("address").value.trim();
 
     const lines = [];
-    lines.push(t("Mirzanin Mutfağı - Online Sipariş", "Mirzanin Mutfağı - سفارش آنلاین"));
+
+    lines.push(
+      t(
+        "Mirzanin Mutfağı - Online Sipariş",
+        "Mirzanin Mutfağı - سفارش آنلاین"
+      )
+    );
+
     lines.push("--------------------------------");
 
-    if(name) lines.push(t("Ad Soyad: ","نام: ") + name);
-    if(address) lines.push(t("Adres: ","آدرس: ") + address);
-    if(name || address) lines.push("--------------------------------");
+    if (name) {
+      lines.push(t("Ad Soyad: ", "نام: ") + name);
+    }
+
+    if (address) {
+      lines.push(t("Adres: ", "آدرس: ") + address);
+    }
+
+    if (name || address) {
+      lines.push("--------------------------------");
+    }
 
     let any = false;
-    sections.forEach(sec=>{
-      sec.items.forEach(it=>{
+
+    sections.forEach(sec => {
+      sec.items.forEach(it => {
         const q = qty[it.id] || 0;
-        if(q > 0){
+
+        if (q > 0) {
           any = true;
-          const nm = (lang==="TR" ? it.nameTR : it.nameFA);
+
+          const nm = (lang === "TR" ? it.nameTR : it.nameFA);
           const pr = formatPrice(it.price);
+
           lines.push(`${q} x ${nm}${pr ? " — " + pr : ""}`);
         }
       });
     });
 
-    if(!any){
-      alert(t("Lütfen en az 1 ürün seçin.", "لطفاً حداقل ۱ آیتم انتخاب کن."));
+    if (!any) {
+      alert(t(
+        "Lütfen en az 1 ürün seçin.",
+        "لطفاً حداقل ۱ آیتم انتخاب کن."
+      ));
       return;
     }
 
-    if(note){
+    if (note) {
       lines.push("--------------------------------");
-      lines.push(t("Not: ","توضیح: ") + note);
+      lines.push(t("Not: ", "توضیح: ") + note);
     }
 
     const msg = encodeURIComponent(lines.join("\n"));
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+
     window.open(url, "_blank");
   }
 
